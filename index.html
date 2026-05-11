@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elvi Memories — Fotografía Profesional en Lawrenceville, Georgia</title>
+  <meta name="description" content="Estudio de fotografía profesional en Lawrenceville, Georgia. Maternidad, familia, cumpleaños, XV años, parejas y branding personal." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Skip to content -->
+  <a href="#inicio" class="skip-link">Ir al contenido principal</a>
+
+  <!-- Floating petals canvas -->
+  <canvas id="petals-canvas" aria-hidden="true"></canvas>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="#inicio" class="navbar__logo">
+        <span class="logo-elvi">Elvi</span><span class="logo-memories">Memories</span>
+      </a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="#inicio">Inicio</a>
+        <a href="#portafolio">Portafolio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#reserva">Reservar</a>
+        <a href="#testimonios">Testimonios</a>
+      </nav>
+      <a href="#reserva" class="btn btn--outline btn--sm navbar__cta">Agendar Sesión</a>
+      <button class="navbar__toggle" id="menuToggle" aria-label="Abrir menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu__close" id="menuClose" aria-label="Cerrar menú">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <nav class="mobile-menu__links">
+      <a href="#inicio">Inicio</a>
+      <a href="#portafolio">Portafolio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#reserva">Reservar</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#reserva" class="btn btn--primary">Agendar Sesión</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <section class="hero" id="inicio">
+      <div class="hero__blob hero__blob--1" aria-hidden="true"></div>
+      <div class="hero__blob hero__blob--2" aria-hidden="true"></div>
+      <div class="hero__blob hero__blob--3" aria-hidden="true"></div>
+
+      <div class="hero__split">
+
+        <!-- Lado izquierdo: texto -->
+        <div class="hero__left">
+          <span class="hero__watermark" aria-hidden="true">Elvi</span>
+          <span class="hero__eyebrow">Una experiencia exclusiva para mujeres · Lawrenceville, GA</span>
+          <h1 class="hero__title">
+            <span class="hero__line">Aquí descubres</span>
+            <span class="hero__line hero__line--accent"><em>la mujer</em></span>
+            <span class="hero__line">que siempre has sido</span>
+          </h1>
+          <p class="hero__desc">No venimos a crear belleza. Venimos a revelarla. A mostrarte lo que siempre ha estado ahí, esperando ser visto y celebrado.</p>
+          <div class="hero__actions">
+            <a href="#experiencia" class="btn btn--primary">Comenzar mi experiencia</a>
+            <a href="#portafolio" class="btn btn--outline">Ver historias reales</a>
+          </div>
+          <div class="hero__pillars">
+            <span class="hero__pillar">Lawrenceville, GA</span>
+            <span class="hero__pillar-sep">·</span>
+            <span class="hero__pillar">Sesiones para mujeres reales</span>
+            <span class="hero__pillar-sep">·</span>
+            <span class="hero__pillar">Experiencia completa, no solo fotos</span>
+          </div>
+        </div>
+
+        <!-- Lado derecho: foto -->
+        <div class="hero__right" aria-hidden="true">
+          <div class="hero__photo-frame">
+            <img src="imagenes/hero/_74A5952.jpg" alt="Sesión fotográfica Elvi Memories" class="hero__photo" />
+            <div class="hero__photo-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              Elvi Memories
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Maternidad</span><span class="marquee-sep">✦</span>
+        <span>Familia</span><span class="marquee-sep">✦</span>
+        <span>Cumpleaños</span><span class="marquee-sep">✦</span>
+        <span>XV Años</span><span class="marquee-sep">✦</span>
+        <span>Parejas</span><span class="marquee-sep">✦</span>
+        <span>Niños</span><span class="marquee-sep">✦</span>
+        <span>Artísticas</span><span class="marquee-sep">✦</span>
+        <span>Revelación de Género</span><span class="marquee-sep">✦</span>
+        <span>Memorias</span><span class="marquee-sep">✦</span>
+        <span>Amor</span><span class="marquee-sep">✦</span>
+        <span>Belleza Real</span><span class="marquee-sep">✦</span>
+        <span>Emociones</span><span class="marquee-sep">✦</span>
+        <span>Experiencias</span><span class="marquee-sep">✦</span>
+        <span>Momentos Únicos</span><span class="marquee-sep">✦</span>
+        <span>Lawrenceville, GA</span><span class="marquee-sep">✦</span>
+        <span>Elvi Memories</span><span class="marquee-sep">✦</span>
+        <!-- duplicado para loop continuo -->
+        <span>Maternidad</span><span class="marquee-sep">✦</span>
+        <span>Familia</span><span class="marquee-sep">✦</span>
+        <span>Cumpleaños</span><span class="marquee-sep">✦</span>
+        <span>XV Años</span><span class="marquee-sep">✦</span>
+        <span>Parejas</span><span class="marquee-sep">✦</span>
+        <span>Niños</span><span class="marquee-sep">✦</span>
+        <span>Artísticas</span><span class="marquee-sep">✦</span>
+        <span>Revelación de Género</span><span class="marquee-sep">✦</span>
+        <span>Memorias</span><span class="marquee-sep">✦</span>
+        <span>Amor</span><span class="marquee-sep">✦</span>
+        <span>Belleza Real</span><span class="marquee-sep">✦</span>
+        <span>Emociones</span><span class="marquee-sep">✦</span>
+        <span>Experiencias</span><span class="marquee-sep">✦</span>
+        <span>Momentos Únicos</span><span class="marquee-sep">✦</span>
+        <span>Lawrenceville, GA</span><span class="marquee-sep">✦</span>
+        <span>Elvi Memories</span><span class="marquee-sep">✦</span>
+      </div>
+    </div>
+
+    <section class="section" id="portafolio">
+      <div class="container">
+        <div class="section-header section-header--center reveal">
+          <span class="section-label">Historias reales</span>
+          <h2 class="section-title">Mujeres reales.<br><em>Belleza real.</em></h2>
+          <p class="section-subtitle">Cada imagen que ves aquí es el resultado de una mujer que decidió verse a sí misma</p>
+        </div>
+      </div>
+
+      <div class="reel-gallery">
+
+        <!-- Fila 1: izquierda -->
+        <div class="reel-row">
+          <div class="reel-track reel-track--left">
+            <div class="reel-img" data-cat="Cumpleaños"><img src="imagenes/cumpleanos/_74A9393.jpg"        alt="Cumpleaños" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Maternidad"><img src="imagenes/maternidad/174A1058.jpg"        alt="Maternidad" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Artísticas"><img src="imagenes/Artisticas/174A3796.jpg"        alt="Artísticas" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Parejas"   ><img src="imagenes/parejas/174A2649.jpg"           alt="Parejas"    loading="lazy" /></div>
+            <div class="reel-img" data-cat="Familia"   ><img src="imagenes/familia/174A0095.jpg"           alt="Familia"    loading="lazy" /></div>
+            <div class="reel-img" data-cat="Cumpleaños"><img src="imagenes/cumpleanos/174A4355.jpg"        alt="Cumpleaños" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Niños"     ><img src="imagenes/Ninos/_74A4275.jpg"             alt="Niños"      loading="lazy" /></div>
+            <div class="reel-img" data-cat="Maternidad"><img src="imagenes/maternidad/_74A9072-2.jpg"      alt="Maternidad" loading="lazy" /></div>
+            <!-- duplicados -->
+            <div class="reel-img" data-cat="Cumpleaños" aria-hidden="true"><img src="imagenes/cumpleanos/_74A9393.jpg"   alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Maternidad" aria-hidden="true"><img src="imagenes/maternidad/174A1058.jpg"   alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Artísticas" aria-hidden="true"><img src="imagenes/Artisticas/174A3796.jpg"  alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Parejas"    aria-hidden="true"><img src="imagenes/parejas/174A2649.jpg"      alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Familia"    aria-hidden="true"><img src="imagenes/familia/174A0095.jpg"      alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Cumpleaños" aria-hidden="true"><img src="imagenes/cumpleanos/174A4355.jpg"  alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Niños"      aria-hidden="true"><img src="imagenes/Ninos/_74A4275.jpg"        alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Maternidad" aria-hidden="true"><img src="imagenes/maternidad/_74A9072-2.jpg" alt="" loading="lazy" /></div>
+          </div>
+        </div>
+
+        <!-- Fila 2: derecha -->
+        <div class="reel-row">
+          <div class="reel-track reel-track--right">
+            <div class="reel-img" data-cat="Cumpleaños"><img src="imagenes/cumpleanos/IMG_1706.jpg"             alt="Cumpleaños" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Maternidad"><img src="imagenes/maternidad/174A7840-2-Edit-2.jpg"    alt="Maternidad" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Artísticas"><img src="imagenes/Artisticas/_74A5219.jpg"             alt="Artísticas" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Familia"   ><img src="imagenes/familia/174A9454.jpg"                alt="Familia"    loading="lazy" /></div>
+            <div class="reel-img" data-cat="Parejas"   ><img src="imagenes/parejas/Tezza-6346.jpg"              alt="Parejas"    loading="lazy" /></div>
+            <div class="reel-img" data-cat="Artísticas"><img src="imagenes/Artisticas/IMG_4901-2.jpg"           alt="Artísticas" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Revelación"><img src="imagenes/revelacion/174A7490.jpg"             alt="Revelación" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Cumpleaños"><img src="imagenes/cumpleanos/IMG_9764.jpg"             alt="Cumpleaños" loading="lazy" /></div>
+            <!-- duplicados -->
+            <div class="reel-img" data-cat="Cumpleaños" aria-hidden="true"><img src="imagenes/cumpleanos/IMG_1706.jpg"           alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Maternidad" aria-hidden="true"><img src="imagenes/maternidad/174A7840-2-Edit-2.jpg"  alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Artísticas" aria-hidden="true"><img src="imagenes/Artisticas/_74A5219.jpg"           alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Familia"    aria-hidden="true"><img src="imagenes/familia/174A9454.jpg"              alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Parejas"    aria-hidden="true"><img src="imagenes/parejas/Tezza-6346.jpg"            alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Artísticas" aria-hidden="true"><img src="imagenes/Artisticas/IMG_4901-2.jpg"         alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Revelación" aria-hidden="true"><img src="imagenes/revelacion/174A7490.jpg"           alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Cumpleaños" aria-hidden="true"><img src="imagenes/cumpleanos/IMG_9764.jpg"           alt="" loading="lazy" /></div>
+          </div>
+        </div>
+
+        <!-- Fila 3: izquierda lenta -->
+        <div class="reel-row">
+          <div class="reel-track reel-track--slow">
+            <div class="reel-img" data-cat="Artísticas"><img src="imagenes/Artisticas/174A0179-3.jpg"   alt="Artísticas" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Parejas"   ><img src="imagenes/parejas/174A9198.jpg"        alt="Parejas"    loading="lazy" /></div>
+            <div class="reel-img" data-cat="Maternidad"><img src="imagenes/maternidad/_74A9748.jpg"     alt="Maternidad" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Artísticas"><img src="imagenes/Artisticas/IMG_8484.jpg"     alt="Artísticas" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Familia"   ><img src="imagenes/familia/_74A8917-299.jpg"    alt="Familia"    loading="lazy" /></div>
+            <div class="reel-img" data-cat="Cumpleaños"><img src="imagenes/cumpleanos/IMG_3473.jpg"     alt="Cumpleaños" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Niños"     ><img src="imagenes/Ninos/IMG_3502.jpg"          alt="Niños"      loading="lazy" /></div>
+            <div class="reel-img" data-cat="Artísticas"><img src="imagenes/Artisticas/_74A8416.jpg"     alt="Artísticas" loading="lazy" /></div>
+            <!-- duplicados -->
+            <div class="reel-img" data-cat="Artísticas" aria-hidden="true"><img src="imagenes/Artisticas/174A0179-3.jpg"  alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Parejas"    aria-hidden="true"><img src="imagenes/parejas/174A9198.jpg"       alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Maternidad" aria-hidden="true"><img src="imagenes/maternidad/_74A9748.jpg"    alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Artísticas" aria-hidden="true"><img src="imagenes/Artisticas/IMG_8484.jpg"    alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Familia"    aria-hidden="true"><img src="imagenes/familia/_74A8917-299.jpg"   alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Cumpleaños" aria-hidden="true"><img src="imagenes/cumpleanos/IMG_3473.jpg"   alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Niños"      aria-hidden="true"><img src="imagenes/Ninos/IMG_3502.jpg"         alt="" loading="lazy" /></div>
+            <div class="reel-img" data-cat="Artísticas" aria-hidden="true"><img src="imagenes/Artisticas/_74A8416.jpg"   alt="" loading="lazy" /></div>
+          </div>
+        </div>
+
+        <div class="reel-fade-left" aria-hidden="true"></div>
+        <div class="reel-fade-right" aria-hidden="true"></div>
+      </div>
+
+      <div class="container">
+        <div class="portfolio-footer reveal">
+          <a href="https://www.instagram.com/elvimemoriesfotografia/" target="_blank" rel="noopener" class="btn btn--outline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+            Ver más en Instagram
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="sobre-mi">
+      <div class="container">
+        <div class="about__grid">
+          <div class="about__photo-wrap reveal-left">
+            <div class="about__photo-slider">
+              <img src="imagenes/perfil/Tezza-0017.jpg" class="about__slide active" alt="Luisa — Elvi Memories" />
+              <img src="imagenes/perfil/_74A5952.jpg"   class="about__slide"        alt="Luisa — Elvi Memories" />
+            </div>
+            <div class="about__photo-dots">
+              <span class="about__dot active"></span>
+              <span class="about__dot"></span>
+            </div>
+          </div>
+          <div class="about__content reveal-right">
+            <span class="section-label">Nuestra filosofía</span>
+            <h2 class="about__title">No soy fotógrafa.<br><em>Soy creadora<br>de experiencias.</em></h2>
+            <p>La cámara es nuestra herramienta, pero nuestra verdadera misión es otra: despertar el amor propio que muchas veces ha estado dormido, sacar a la luz esa belleza interior que a veces tú misma no puedes ver.</p>
+            <p>Cada mujer que llega con nosotras sale diferente — no por las fotos, sino por la manera en que se ve a sí misma a partir de ese día.</p>
+            <ul class="about__features">
+              <li>Te escuchamos antes de fotografiarte</li>
+              <li>Creamos un espacio seguro, sin juicios</li>
+              <li>Te guiamos con paciencia y cariño</li>
+              <li>Celebramos cada cuerpo, cada edad, cada historia</li>
+            </ul>
+            <a href="#experiencia" class="btn btn--primary">Conocer la experiencia</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt exp-section" id="experiencia">
+      <div class="container">
+        <div class="section-header section-header--center reveal">
+          <span class="section-label">Cómo funciona</span>
+          <h2 class="section-title">Una experiencia<br><em>completa</em></h2>
+          <p class="section-subtitle">Desde el primer mensaje hasta la entrega de tus imágenes, cada paso está pensado para ti</p>
+        </div>
+        <div class="exp-steps">
+
+          <div class="exp-step reveal">
+            <div class="exp-step__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <span class="exp-step__num">01</span>
+            <div class="exp-step__content">
+              <h3>Una conversación previa</h3>
+              <p>Antes de encontrarnos, hablamos. Quiero saber quién eres, qué quieres transformar y qué te mueve. Esta sesión empieza mucho antes de que llegues.</p>
+            </div>
+          </div>
+
+          <div class="exp-step reveal">
+            <div class="exp-step__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <span class="exp-step__num">02</span>
+            <div class="exp-step__content">
+              <h3>Acompañamiento emocional</h3>
+              <p>No estás sola en ningún momento. Te guío, te sostengo y te celebro en cada parte de la experiencia. Aquí puedes ser exactamente quien eres.</p>
+            </div>
+          </div>
+
+          <div class="exp-step reveal">
+            <div class="exp-step__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+            <span class="exp-step__num">03</span>
+            <div class="exp-step__content">
+              <h3>Guía profesional completa</h3>
+              <p>Poses, expresiones, luz — me encargo de todo para que tú solo tengas que sentirte. Sin poses forzadas. Sin nada que no seas tú.</p>
+            </div>
+          </div>
+
+          <div class="exp-step reveal">
+            <div class="exp-step__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </div>
+            <span class="exp-step__num">04</span>
+            <div class="exp-step__content">
+              <h3>Tu espacio de redescubrimiento</h3>
+              <p>Este es un espacio seguro donde no existen los estándares imposibles. Aquí celebramos cada cuerpo, cada edad, cada historia. Eres más que suficiente.</p>
+            </div>
+          </div>
+
+          <div class="exp-step reveal">
+            <div class="exp-step__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <span class="exp-step__num">05</span>
+            <div class="exp-step__content">
+              <h3>Recuerdos que te recuerdan quién eres</h3>
+              <p>Las imágenes que te entregamos no son solo fotos. Son el recordatorio visual de lo poderosa, bella y auténtica que siempre has sido.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="exp-quote reveal">
+          <blockquote>"Tú ya eres hermosa.<br>Nosotras solo te ayudamos a verlo."</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="servicios">
+      <div class="container">
+        <div class="section-header section-header--center reveal">
+          <span class="section-label">Tu experiencia</span>
+          <h2 class="section-title">Cada mujer tiene<br>su <em>historia</em> única</h2>
+          <p class="section-subtitle">Elige la experiencia que sientes que necesitas — todas están diseñadas para ti</p>
+        </div>
+
+        <div class="svc-carousel-wrap reveal">
+          <div class="svc-carousel" id="svcCarousel">
+
+            <div class="svc-card">
+              <div class="svc-card__img">
+                <img src="imagenes/maternidad/174A7840-2-Edit-2.jpg" alt="Maternidad" loading="lazy" />
+              </div>
+              <div class="svc-card__front">
+                <span class="svc-card__num">01</span>
+                <h3 class="svc-card__name">Maternidad</h3>
+              </div>
+              <div class="svc-card__hover">
+                <span class="svc-card__num">01</span>
+                <h3 class="svc-card__name">Maternidad</h3>
+                <p class="svc-card__tagline"><em>La espera más poderosa</em></p>
+                <p class="svc-card__desc">Estás creando vida. Esta experiencia celebra cada curva y conexión silenciosa — y te recuerda lo que realmente eres: una mujer increíble.</p>
+                <a href="#reserva" class="svc-card__cta">Vivir esta experiencia →</a>
+              </div>
+            </div>
+
+            <div class="svc-card">
+              <div class="svc-card__img">
+                <img src="imagenes/familia/174A9454.jpg" alt="Familia" loading="lazy" />
+              </div>
+              <div class="svc-card__front">
+                <span class="svc-card__num">02</span>
+                <h3 class="svc-card__name">Familia</h3>
+              </div>
+              <div class="svc-card__hover">
+                <span class="svc-card__num">02</span>
+                <h3 class="svc-card__name">Familia</h3>
+                <p class="svc-card__tagline"><em>Para la mujer que lo da todo por los suyos</em></p>
+                <p class="svc-card__desc">Mamá, también mereces ser vista. Esta experiencia te recuerda que tú eres el corazón de todo lo que ves en esas imágenes.</p>
+                <a href="#reserva" class="svc-card__cta">Vivir esta experiencia →</a>
+              </div>
+            </div>
+
+            <div class="svc-card">
+              <div class="svc-card__img">
+                <img src="imagenes/cumpleanos/174A4355.jpg" alt="Cumpleaños" loading="lazy" />
+              </div>
+              <div class="svc-card__front">
+                <span class="svc-card__num">03</span>
+                <h3 class="svc-card__name">Cumpleaños</h3>
+              </div>
+              <div class="svc-card__hover">
+                <span class="svc-card__num">03</span>
+                <h3 class="svc-card__name">Cumpleaños</h3>
+                <p class="svc-card__tagline"><em>Celebra quién eres hoy</em></p>
+                <p class="svc-card__desc">Cada año es un recordatorio de que sigues aquí, creciendo y brillando. Esta es una celebración de ti y todo lo que representas.</p>
+                <a href="#reserva" class="svc-card__cta">Vivir esta experiencia →</a>
+              </div>
+            </div>
+
+            <div class="svc-card">
+              <div class="svc-card__img">
+                <img src="imagenes/xv-anos/IMG_3609.jpg" alt="XV Años" loading="lazy" />
+              </div>
+              <div class="svc-card__front">
+                <span class="svc-card__num">04</span>
+                <h3 class="svc-card__name">XV Años</h3>
+              </div>
+              <div class="svc-card__hover">
+                <span class="svc-card__num">04</span>
+                <h3 class="svc-card__name">XV Años</h3>
+                <p class="svc-card__tagline"><em>El día en que te conviertes en ti misma</em></p>
+                <p class="svc-card__desc">Los quince no son solo una fecha — son el momento en que una niña descubre la mujer que es. Esta experiencia honra esa transformación.</p>
+                <a href="#reserva" class="svc-card__cta">Vivir esta experiencia →</a>
+              </div>
+            </div>
+
+            <div class="svc-card">
+              <div class="svc-card__img">
+                <img src="imagenes/parejas/Tezza-6346.jpg" alt="Parejas" loading="lazy" />
+              </div>
+              <div class="svc-card__front">
+                <span class="svc-card__num">05</span>
+                <h3 class="svc-card__name">Parejas</h3>
+              </div>
+              <div class="svc-card__hover">
+                <span class="svc-card__num">05</span>
+                <h3 class="svc-card__name">Parejas</h3>
+                <p class="svc-card__tagline"><em>Dos historias que se convierten en una</em></p>
+                <p class="svc-card__desc">La química, la complicidad, la ternura — todo lo que hace único a su amor, eternizado con autenticidad y sin poses forzadas.</p>
+                <a href="#reserva" class="svc-card__cta">Vivir esta experiencia →</a>
+              </div>
+            </div>
+
+            <div class="svc-card">
+              <div class="svc-card__img">
+                <img src="imagenes/Ninos/_74A4363.jpg" alt="Niños" loading="lazy" />
+              </div>
+              <div class="svc-card__front">
+                <span class="svc-card__num">06</span>
+                <h3 class="svc-card__name">Niños</h3>
+              </div>
+              <div class="svc-card__hover">
+                <span class="svc-card__num">06</span>
+                <h3 class="svc-card__name">Niños</h3>
+                <p class="svc-card__tagline"><em>La alegría más pura del mundo</em></p>
+                <p class="svc-card__desc">Los niños viven con una intensidad que los adultos olvidamos. Esta experiencia congela esa magia — sus risas, su curiosidad, su amor sin filtros.</p>
+                <a href="#reserva" class="svc-card__cta">Vivir esta experiencia →</a>
+              </div>
+            </div>
+
+            <div class="svc-card">
+              <div class="svc-card__img">
+                <img src="imagenes/Artisticas/IMG_4901-2.jpg" alt="Artísticas" loading="lazy" />
+              </div>
+              <div class="svc-card__front">
+                <span class="svc-card__num">07</span>
+                <h3 class="svc-card__name">Artísticas</h3>
+              </div>
+              <div class="svc-card__hover">
+                <span class="svc-card__num">07</span>
+                <h3 class="svc-card__name">Artísticas</h3>
+                <p class="svc-card__tagline"><em>Tu versión más libre y sin límites</em></p>
+                <p class="svc-card__desc">Conceptos únicos, escenarios creativos y una versión de ti que quizás no habías explorado. Aquí el arte y tú se fusionan.</p>
+                <a href="#reserva" class="svc-card__cta">Vivir esta experiencia →</a>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="svc-nav">
+            <button class="svc-nav__btn" id="svcPrev" aria-label="Anterior">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="svc-nav__dots" id="svcDots" role="tablist" aria-label="Servicios">
+              <span class="svc-dot active" role="tab" aria-label="Maternidad" aria-selected="true"></span>
+              <span class="svc-dot" role="tab" aria-label="Familia" aria-selected="false"></span>
+              <span class="svc-dot" role="tab" aria-label="Cumpleaños" aria-selected="false"></span>
+              <span class="svc-dot" role="tab" aria-label="XV Años" aria-selected="false"></span>
+              <span class="svc-dot" role="tab" aria-label="Parejas" aria-selected="false"></span>
+              <span class="svc-dot" role="tab" aria-label="Niños" aria-selected="false"></span>
+              <span class="svc-dot" role="tab" aria-label="Artísticas" aria-selected="false"></span>
+            </div>
+            <button class="svc-nav__btn" id="svcNext" aria-label="Siguiente">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="reserva">
+      <div class="container">
+        <div class="section-header section-header--center reveal">
+          <span class="section-label">Comienza tu experiencia</span>
+          <h2 class="section-title">Agenda tu<br><em>sesión</em></h2>
+          <p class="section-subtitle">Dinos qué quieres vivir — diseñamos cada detalle para ti</p>
+        </div>
+
+        <form class="booking-wrap" id="bookingForm" novalidate>
+
+          <!-- Paso 1: Tipo de sesión -->
+          <div class="booking-block reveal">
+            <span class="booking-block__label">01 &mdash; ¿Qué experiencia buscas?</span>
+            <div class="session-grid">
+
+              <button type="button" class="session-btn" data-session="Maternidad">
+                <span class="session-btn__icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 3-2.5 5.5-4 7-1.5-1.5-4-4-4-7a4 4 0 0 1 4-4z"/><ellipse cx="12" cy="19" rx="5" ry="3"/></svg>
+                </span>
+                <span class="session-btn__name">Maternidad</span>
+              </button>
+
+              <button type="button" class="session-btn" data-session="Familia">
+                <span class="session-btn__icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </span>
+                <span class="session-btn__name">Familia</span>
+              </button>
+
+              <button type="button" class="session-btn" data-session="Cumpleaños">
+                <span class="session-btn__icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </span>
+                <span class="session-btn__name">Cumpleaños</span>
+              </button>
+
+              <button type="button" class="session-btn" data-session="XV Años">
+                <span class="session-btn__icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l3 12h14l3-12-6 7.5L12 4l-4 7.5L2 4z"/></svg>
+                </span>
+                <span class="session-btn__name">XV Años</span>
+              </button>
+
+              <button type="button" class="session-btn" data-session="Parejas">
+                <span class="session-btn__icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </span>
+                <span class="session-btn__name">Parejas</span>
+              </button>
+
+              <button type="button" class="session-btn" data-session="Niños">
+                <span class="session-btn__icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                </span>
+                <span class="session-btn__name">Niños</span>
+              </button>
+
+              <button type="button" class="session-btn" data-session="Artísticas">
+                <span class="session-btn__icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                </span>
+                <span class="session-btn__name">Artísticas</span>
+              </button>
+
+              <button type="button" class="session-btn" data-session="Revelación">
+                <span class="session-btn__icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </span>
+                <span class="session-btn__name">Revelación</span>
+              </button>
+
+            </div>
+          </div>
+
+          <!-- Paso 2: Estilo (aparece al seleccionar sesión) -->
+          <div class="booking-block booking-block--style" id="styleBlock">
+            <span class="booking-block__label">02 &mdash; ¿Qué estilo prefieres?</span>
+            <div class="style-grid" id="styleGrid"></div>
+          </div>
+
+          <!-- Paso 3 + 4: Calendario e información -->
+          <div class="booking-bottom reveal">
+
+            <!-- Calendario -->
+            <div class="booking-cal-section">
+              <span class="booking-block__label">03 &mdash; ¿Cuándo te gustaría tu sesión?</span>
+              <div class="booking-cal" id="bookingCal">
+                <div class="booking-cal__header">
+                  <button type="button" class="booking-cal__nav" id="calPrev" aria-label="Mes anterior">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                  </button>
+                  <span class="booking-cal__month" id="calMonthLabel"></span>
+                  <button type="button" class="booking-cal__nav" id="calNext" aria-label="Mes siguiente">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                </div>
+                <div class="booking-cal__weekdays">
+                  <span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span>
+                </div>
+                <div class="booking-cal__days" id="calDays"></div>
+              </div>
+              <div class="booking-cal__pick" id="calPickDisplay">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span id="calPickText">Elige un día en el calendario</span>
+              </div>
+              <div class="booking-time-wrap">
+                <span class="booking-time__label">Horario preferido</span>
+                <div class="time-slots" id="timeSlots">
+                  <button type="button" class="time-slot" data-time="8:00 AM">8:00 AM</button>
+                  <button type="button" class="time-slot" data-time="9:00 AM">9:00 AM</button>
+                  <button type="button" class="time-slot" data-time="10:00 AM">10:00 AM</button>
+                  <button type="button" class="time-slot" data-time="11:00 AM">11:00 AM</button>
+                  <button type="button" class="time-slot" data-time="12:00 PM">12:00 PM</button>
+                  <button type="button" class="time-slot" data-time="1:00 PM">1:00 PM</button>
+                  <button type="button" class="time-slot" data-time="2:00 PM">2:00 PM</button>
+                  <button type="button" class="time-slot" data-time="3:00 PM">3:00 PM</button>
+                  <button type="button" class="time-slot" data-time="4:00 PM">4:00 PM</button>
+                  <button type="button" class="time-slot" data-time="5:00 PM">5:00 PM</button>
+                  <button type="button" class="time-slot" data-time="6:00 PM">6:00 PM</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Datos personales -->
+            <div class="booking-info-section">
+              <span class="booking-block__label">04 &mdash; Tus datos</span>
+              <div class="booking-fields">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="bNombre">Nombre completo</label>
+                    <input type="text" id="bNombre" name="bNombre" placeholder="Tu nombre" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="bEmail">Correo electrónico</label>
+                    <input type="email" id="bEmail" name="bEmail" placeholder="tu@email.com" required />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="bTelefono">Teléfono (opcional)</label>
+                  <input type="tel" id="bTelefono" name="bTelefono" placeholder="+1 (000) 000-0000" />
+                </div>
+                <div class="form-group">
+                  <label for="bMensaje">Algo más que quieras contarme</label>
+                  <textarea id="bMensaje" name="bMensaje" rows="4" placeholder="Cuéntame tu historia, lo que sueñas para tu sesión..."></textarea>
+                </div>
+                <div class="booking-submit-wrap" id="bookingSubmitWrap">
+                  <button type="button" class="btn btn--primary booking-submit-btn" id="submitWhatsapp">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    WhatsApp
+                  </button>
+                  <button type="button" class="btn btn--outline booking-submit-btn" id="submitSMS">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Mensaje de texto
+                  </button>
+                </div>
+                <div class="booking-success" id="bookingSuccess">
+                  <div class="booking-success__icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <h3>¡Solicitud enviada!</h3>
+                  <p>Solo falta que aprueben tu reservación<br>para poder hacer el depósito.<br>Te contactaremos muy pronto.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="testimonios">
+      <div class="container">
+
+        <div class="section-header section-header--center reveal">
+          <span class="section-label">Lo que dicen de nosotras</span>
+          <h2 class="section-title">Historias que<br><em>nos mueven</em></h2>
+        </div>
+
+        <!-- Barra de calificación general -->
+        <div class="rating-banner reveal">
+          <div class="rating-banner__left">
+            <span class="rating-big">5.0</span>
+            <div class="rating-stars-row">
+              <span class="rating-stars">★★★★★</span>
+              <span class="rating-count">Calificación perfecta</span>
+            </div>
+          </div>
+          <div class="rating-banner__divider"></div>
+          <div class="rating-banner__google">
+            <svg width="22" height="22" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            <div class="rating-banner__google-text">
+              <strong>Elvi Memories en Google</strong>
+              <span>Reseñas verificadas de clientes reales</span>
+            </div>
+            <a href="https://www.google.com/maps/search/Elvi+Memories+Lawrenceville+GA" target="_blank" rel="noopener" class="btn btn--outline btn--sm">Ver en Google →</a>
+          </div>
+        </div>
+
+        <!-- Grid de reseñas -->
+        <div class="reviews-grid reveal">
+
+          <div class="review-card">
+            <div class="review-card__top">
+              <span class="review-card__stars">★★★★★</span>
+            </div>
+            <blockquote class="review-card__text">"Luisa tiene un talento extraordinario para capturar la emoción de cada momento. Mi sesión de maternidad fue mágica. Las fotos quedaron increíbles y las atesoraré toda la vida."</blockquote>
+            <div class="review-card__author">
+              <div class="review-card__avatar" style="background:#8B5FA8">MG</div>
+              <div class="review-card__info">
+                <strong>María García</strong>
+                <span>Sesión de Maternidad</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card review-card--featured">
+            <div class="review-card__top">
+              <span class="review-card__stars">★★★★★</span>
+            </div>
+            <blockquote class="review-card__text">"Para los XV años de mi hija queríamos algo especial y Luisa superó todas nuestras expectativas. Su profesionalismo y visión artística son únicos. Cada foto es una obra de arte."</blockquote>
+            <div class="review-card__author">
+              <div class="review-card__avatar" style="background:#C4748C">CL</div>
+              <div class="review-card__info">
+                <strong>Carolina López</strong>
+                <span>XV Años</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-card__top">
+              <span class="review-card__stars">★★★★★</span>
+            </div>
+            <blockquote class="review-card__text">"Contratamos a Luisa para una sesión familiar y fue la mejor decisión. Logró capturar la esencia de nuestra familia de una manera natural y auténtica. Sin duda la recomendamos."</blockquote>
+            <div class="review-card__author">
+              <div class="review-card__avatar" style="background:#5FA88B">RM</div>
+              <div class="review-card__info">
+                <strong>Rodrigo Martínez</strong>
+                <span>Sesión Familiar</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Elfsight Google Reviews — se actualiza automáticamente -->
+        <div class="google-reviews-section reveal">
+          <script src="https://elfsightcdn.com/platform.js" async></script>
+          <div class="elfsight-app-d58c42fd-b990-4abe-82a8-a96c4454142a" data-elfsight-app-lazy></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container cta-band__inner reveal">
+        <h2 class="cta-band__title">¿Lista para verte como<br><em>siempre mereciste verte?</em></h2>
+        <p class="cta-band__sub">No necesitas prepararte. No necesitas estar "lista". Solo necesitas llegar — el resto lo hacemos juntas.</p>
+        <a href="#reserva" class="btn btn--white-outline">Comenzar mi experiencia</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="#inicio" class="navbar__logo">
+          <span class="logo-elvi">Elvi</span><span class="logo-memories">Memories</span>
+        </a>
+        <p>Fotografía profesional con alma. Capturando los momentos que definen tu historia en Lawrenceville, Georgia.</p>
+        <div class="footer__socials">
+          <a href="https://www.instagram.com/elvimemoriesfotografia/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/elvimemories" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://wa.me/14705539163" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4 class="footer__heading">Navegación</h4>
+        <nav>
+          <a href="#inicio">Inicio</a>
+          <a href="#portafolio">Portafolio</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#reserva">Reservar</a>
+          <a href="#testimonios">Testimonios</a>
+        </nav>
+      </div>
+      <div class="footer__col">
+        <h4 class="footer__heading">Servicios</h4>
+        <nav>
+          <a href="#servicios">Maternidad</a>
+          <a href="#servicios">Familia</a>
+          <a href="#servicios">XV Años</a>
+          <a href="#servicios">Cumpleaños</a>
+          <a href="#servicios">Parejas</a>
+          <a href="#servicios">Niños</a>
+          <a href="#servicios">Artísticas</a>
+        </nav>
+      </div>
+      <div class="footer__col">
+        <h4 class="footer__heading">Contacto</h4>
+        <a href="tel:+14705539163">+1 470 553 9163</a>
+        <a href="mailto:elvimemories@gmail.com">elvimemories@gmail.com</a>
+        <a href="https://www.instagram.com/elvimemoriesfotografia/" target="_blank" rel="noopener">@elvimemoriesfotografia</a>
+        <span>Lawrenceville, Georgia</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© 2025 Elvi Memories. Todos los derechos reservados.</p>
+        <p>Diseñado con amor para preservar tus memorias.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
