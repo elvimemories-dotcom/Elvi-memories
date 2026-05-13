@@ -1,0 +1,43 @@
+# ===== SECRETOS — NUNCA SUBIR =====
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# ===== PYTHON =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv/
+
+# ===== BASE DE DATOS LOCAL =====
+*.db
+*.sqlite
+*.sqlite3
+
+# ===== ARCHIVOS GENERADOS =====
+contratos/*.pdf
+!contratos/.gitkeep
+
+# ===== HERRAMIENTAS LOCALES =====
+ngrok.exe
+ngrok.zip
+ngrok.ngrok_*
+ngrok.yml
+
+# ===== EDITORES / SO =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== LOGS =====
+*.log
+logs/
