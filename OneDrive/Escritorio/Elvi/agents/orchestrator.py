@@ -11,7 +11,7 @@ from agents.contract_agent import preparar_contrato
 from agents.style_agent import manejar_referencias
 from agents.knowledge_agent import responder_pregunta_paquete
 from agents.gemini_agent import obtener_referencias_gemini
-from agents.shared_context import obtener_contextos_recientes
+from agents.shared_context import obtener_contextos_recientes, obtener_perfil_por_whatsapp
 from config.settings import ZELLE_INFO
 
 # Historial de conversaciones por usuario
@@ -120,6 +120,42 @@ def _contexto_canal_previo() -> str:
     return ""
 
 
+def _saludo_personalizado(perfil: dict) -> tuple[str, str | None]:
+    """Genera saludo y PDF para clienta que viene de IG/Messenger con perfil completo."""
+    sesion  = perfil.get("sesion", "")
+    estilo  = perfil.get("estilo", "")
+    fecha   = perfil.get("fecha", "")
+    detalles = perfil.get("detalles", "")
+    pdf, motivo = _detectar_pdf_por_paquete(sesion, [])
+
+    partes = []
+    if sesion:
+        partes.append(f"sesión de *{sesion}*")
+    if estilo:
+        partes.append(f"estilo _{estilo}_")
+    if fecha:
+        partes.append(f"para _{fecha}_")
+
+    descripcion = ", ".join(partes) if partes else "tu sesión"
+    if detalles:
+        descripcion += f" — {detalles}"
+
+    saludo = (
+        f"¡Hola hermosa! 🤍 Qué alegría que nos escribas por WhatsApp.\n\n"
+        f"Ya sé que buscas una {descripcion} ✨\n\n"
+        f"Aquí te mando el paquete que más te conviene según lo que nos contaste 📸"
+    )
+
+    if motivo not in ("ok",) or not pdf:
+        saludo = (
+            f"¡Hola hermosa! 🤍 Qué alegría que nos escribas por WhatsApp.\n\n"
+            f"Ya sé que buscas una {descripcion} ✨\n\n"
+            f"Cuéntame un poco más para enviarte el paquete exacto que necesitas 🥰"
+        )
+
+    return saludo, pdf
+
+
 def procesar_mensaje(
     user_id: str,
     mensaje: str,
@@ -130,6 +166,20 @@ def procesar_mensaje(
     Retorna {"respuesta": str, "pdf": str | None, "imagenes": list}
     """
     historial = conversaciones.get(user_id, [])
+
+    # Primera vez que escribe — buscar si ya tiene perfil de IG/Messenger
+    if not historial and canal == "whatsapp":
+        perfil_previo = obtener_perfil_por_whatsapp(user_id)
+        if perfil_previo:
+            saludo, pdf = _saludo_personalizado(perfil_previo)
+            guardar_mensaje(user_id, canal, "user", mensaje, "INFO_PAQUETES")
+            guardar_mensaje(user_id, canal, "assistant", saludo)
+            conversaciones[user_id] = [
+                {"role": "user", "content": mensaje},
+                {"role": "assistant", "content": saludo},
+            ]
+            print(f"[WA] {user_id} | perfil_previo:{perfil_previo.get('canal')} | {mensaje[:40]}")
+            return {"respuesta": saludo, "pdf": pdf, "imagenes": []}
 
     resultado = detectar_intencion(mensaje, canal, historial)
     intencion = resultado["intencion"]

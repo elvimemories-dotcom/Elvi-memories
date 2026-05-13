@@ -6,14 +6,19 @@ para que WhatsApp ya sepa qué tipo de sesión, estilo y detalles quiere la clie
 import time
 
 _contextos: dict = {}
+_contextos_por_wa: dict = {}  # índice por número WhatsApp normalizado
+
+
+def _normalizar_wa(numero: str) -> str:
+    return numero.strip().replace("+", "").replace(" ", "").replace("-", "")
 
 
 def guardar_perfil_completo(user_id: str, perfil: dict, canal: str):
-    _contextos[user_id] = {
-        **perfil,
-        "canal": canal,
-        "timestamp": time.time(),
-    }
+    entrada = {**perfil, "canal": canal, "timestamp": time.time()}
+    _contextos[user_id] = entrada
+    wa = _normalizar_wa(perfil.get("whatsapp", ""))
+    if wa:
+        _contextos_por_wa[wa] = entrada
 
 
 def guardar_contexto(user_id: str, sesion: str, canal: str):
@@ -25,6 +30,10 @@ def guardar_contexto(user_id: str, sesion: str, canal: str):
 
 def obtener_contexto(user_id: str) -> dict | None:
     return _contextos.get(user_id)
+
+
+def obtener_perfil_por_whatsapp(numero: str) -> dict | None:
+    return _contextos_por_wa.get(_normalizar_wa(numero))
 
 
 def obtener_contextos_recientes(minutos: int = 60) -> list[dict]:
