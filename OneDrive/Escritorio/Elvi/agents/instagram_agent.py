@@ -7,7 +7,7 @@ import re
 import anthropic
 from config.settings import ANTHROPIC_API_KEY
 from agents.shared_context import guardar_perfil_completo
-from database.db import guardar_mensaje, obtener_conversacion
+from database.db import guardar_mensaje, obtener_conversacion, guardar_whatsapp_cliente
 
 client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY, max_retries=3)
 
@@ -61,9 +61,10 @@ Cumpleaños 🎂 · XV años ✨ · Maternidad 🤰 · Pareja 💑 · Bodas 💍
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 CUANDO TENGAS LOS 5 DATOS → CIERRE CÁLIDO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Escribe un mensaje cálido confirmando que Luisa la va a contactar por WhatsApp
-con el paquete exacto que le conviene según lo que contó.
-NO menciones ningún número de negocio — tú recibiste el de ella.
+Escribe un mensaje cálido diciéndole que ya guardaste su información y que
+Luisa la va a contactar personalmente por WhatsApp muy pronto con los paquetes
+y precios exactos según lo que necesita.
+Hazla sentir especial — que no es una clienta más, sino que la atención será personalizada.
 
 Al final del mensaje agrega EXACTAMENTE esta línea (no la ve la clienta):
 [PERFIL: sesion=X|estilo=X|fecha=X|detalles=X|whatsapp=X]
@@ -74,11 +75,11 @@ Donde X son los datos reales recopilados. Ejemplo:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 NUNCA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-- Inventes precios exactos (los paquetes se envían por WhatsApp)
+- Inventes precios exactos
 - Hables de "defectos", "arreglar" el cuerpo o compares físicos
 - Uses urgencia falsa
 - Pretendas ser humana si preguntan directamente
-- Redirijas a WhatsApp sin tener los 4 datos del perfil completo"""
+- Cierres la conversación sin tener los 5 datos del perfil completo"""
 
 
 def procesar_instagram(user_id: str, mensaje: str) -> str:
@@ -107,6 +108,8 @@ def procesar_instagram(user_id: str, mensaje: str) -> str:
         perfil = _extraer_perfil(texto)
         if perfil:
             guardar_perfil_completo(user_id, perfil, "instagram")
+            if perfil.get("whatsapp"):
+                guardar_whatsapp_cliente(user_id, perfil["whatsapp"])
         texto = _limpiar_etiqueta(texto)
 
     sesion = perfil.get("sesion") if perfil else None

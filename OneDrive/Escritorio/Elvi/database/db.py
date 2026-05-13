@@ -25,7 +25,8 @@ def init_db():
             canal TEXT NOT NULL,
             primer_contacto TEXT NOT NULL,
             ultimo_contacto TEXT NOT NULL,
-            total_mensajes INTEGER DEFAULT 0
+            total_mensajes INTEGER DEFAULT 0,
+            whatsapp_cliente TEXT
         );
 
         CREATE TABLE IF NOT EXISTS mensajes (
@@ -80,11 +81,21 @@ def obtener_conversacion(user_id: str, limite: int = 50) -> list:
     return [dict(r) for r in reversed(rows)]
 
 
+def guardar_whatsapp_cliente(user_id: str, whatsapp: str):
+    """Guarda el número WhatsApp del cliente para que Luisa lo contacte manualmente."""
+    with get_conn() as conn:
+        conn.execute(
+            "UPDATE clientes SET whatsapp_cliente=? WHERE user_id=?",
+            (whatsapp, user_id)
+        )
+
+
 def obtener_todos_los_clientes() -> list:
     """Retorna todos los clientes para el panel."""
     with get_conn() as conn:
         rows = conn.execute("""
             SELECT c.user_id, c.canal, c.primer_contacto, c.ultimo_contacto, c.total_mensajes,
+                   c.whatsapp_cliente,
                    (SELECT contenido FROM mensajes WHERE user_id=c.user_id ORDER BY id DESC LIMIT 1) as ultimo_mensaje,
                    (SELECT intencion FROM mensajes WHERE user_id=c.user_id AND rol='user' ORDER BY id DESC LIMIT 1) as ultima_intencion
             FROM clientes c

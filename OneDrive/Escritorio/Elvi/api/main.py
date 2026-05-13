@@ -1,38 +1,34 @@
 """
 SERVIDOR PRINCIPAL — FastAPI
-Recibe webhooks de Meta y los procesa con los agentes separados por canal.
+Recibe webhooks de Meta: Instagram DM y Facebook Messenger.
 """
+import json
+import os
 from fastapi import FastAPI, Request, Query
-from fastapi.responses import PlainTextResponse, JSONResponse
+from fastapi.responses import PlainTextResponse, JSONResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from database.db import init_db, obtener_todos_los_clientes, obtener_conversacion, obtener_estadisticas
-from agents.orchestrator import procesar_mensaje
 from agents.instagram_agent import procesar_instagram
 from agents.messenger_agent import procesar_messenger
-import json
 from api.meta_webhook import (
     verificar_webhook,
     verificar_firma,
     detectar_canal,
-    extraer_mensaje_whatsapp,
     extraer_mensaje_instagram,
     extraer_mensaje_messenger,
 )
-from api.meta_client import enviar_mensaje, enviar_documento_whatsapp, enviar_imagen_whatsapp
-from config.settings import WEBHOOK_BASE_URL
+from api.meta_client import enviar_mensaje
 
 app = FastAPI(
     title="Elvi — Sistema Multi-Agente de Ventas",
-    description="Automatización de ventas por WhatsApp, Instagram y Messenger",
-    version="2.0.0",
+    description="Automatización de ventas por Instagram y Messenger",
+    version="2.1.0",
 )
 
 @app.on_event("startup")
 async def startup():
     init_db()
 
-# Servir directorios estáticos solo si existen
-import os
 for _dir, _name, _opts in [
     ("paquetes", "paquetes", {}),
     ("referencias", "referencias", {}),
@@ -64,7 +60,7 @@ async def recibir_mensaje(request: Request):
     raw = await request.body()
     firma = request.headers.get("x-hub-signature-256", "")
     if not verificar_firma(raw, firma):
-        print(f"[META-WEBHOOK] Firma HMAC inválida — solicitud rechazada")
+        print("[META-WEBHOOK] Firma HMAC inválida — solicitud rechazada")
         return JSONResponse({"status": "forbidden"}, status_code=403)
 
     try:
@@ -75,56 +71,28 @@ async def recibir_mensaje(request: Request):
     canal = detectar_canal(body)
 
     try:
-        # ── WHATSAPP ─────────────────────────────────────────────────────
-        if canal == "whatsapp":
-            datos = extraer_mensaje_whatsapp(body)
-            if not datos:
-                return JSONResponse({"status": "ok", "msg": "sin mensaje"})
-
-            user_id, recipient_id, mensaje = datos
-            resultado = procesar_mensaje(user_id, mensaje, "whatsapp")
-            respuesta = resultado["respuesta"]
-            pdf = resultado.get("pdf")
-            imagenes = resultado.get("imagenes", [])
-
-            resultado_envio = await enviar_mensaje("whatsapp", recipient_id, respuesta)
-            print(f"[META-SEND] {resultado_envio}")
-
-            if pdf:
-                from urllib.parse import quote
-                url_pdf = f"{WEBHOOK_BASE_URL}/paquetes/{quote(pdf)}"
-                await enviar_documento_whatsapp(
-                    recipient_id, url_pdf, pdf,
-                    caption="🤍 Aquí tienes nuestro PDF de paquetes ✨"
-                )
-
-            for ruta in imagenes:
-                partes = ruta.replace("\\", "/").split("/")
-                url_img = f"{WEBHOOK_BASE_URL}/" + "/".join(partes)
-                await enviar_imagen_whatsapp(recipient_id, url_img)
-
         # ── INSTAGRAM ────────────────────────────────────────────────────
-        elif canal == "instagram":
+        if canal == "instagram":
             datos = extraer_mensaje_instagram(body)
             if not datos:
                 return JSONResponse({"status": "ok", "msg": "sin mensaje"})
-
             user_id, recipient_id, mensaje = datos
             respuesta = procesar_instagram(user_id, mensaje)
-            await enviar_mensaje("instagram", recipient_id, respuesta)
+            resultado = await enviar_mensaje("instagram", recipient_id, respuesta)
+            print(f"[META-SEND] {resultado}")
 
         # ── MESSENGER ────────────────────────────────────────────────────
         elif canal == "messenger":
             datos = extraer_mensaje_messenger(body)
             if not datos:
                 return JSONResponse({"status": "ok", "msg": "sin mensaje"})
-
             user_id, recipient_id, mensaje = datos
             respuesta = procesar_messenger(user_id, mensaje)
-            await enviar_mensaje("messenger", recipient_id, respuesta)
+            resultado = await enviar_mensaje("messenger", recipient_id, respuesta)
+            print(f"[META-SEND] {resultado}")
 
         else:
-            return JSONResponse({"status": "ok", "msg": "canal desconocido"})
+            return JSONResponse({"status": "ok", "msg": "canal no activo"})
 
     except Exception as e:
         print(f"[ERROR] {canal}: {e}")
@@ -138,7 +106,7 @@ async def recibir_mensaje(request: Request):
 # ====================================================================
 @app.get("/")
 async def root():
-    return {"mensaje": "Elvi — Sistema Multi-Agente v2.0 activo ✅"}
+    return {"mensaje": "Elvi — Sistema Multi-Agente v2.1 activo ✅"}
 
 
 # ====================================================================
@@ -146,20 +114,22 @@ async def root():
 # ====================================================================
 @app.get("/admin")
 async def panel_admin():
-    from fastapi.responses import HTMLResponse
     stats = obtener_estadisticas()
     clientes = obtener_todos_los_clientes()
 
     filas = ""
     for c in clientes:
         ultimo = (c["ultimo_mensaje"] or "")[:60]
-        canal_emoji = {"whatsapp": "💬", "instagram": "📸", "messenger": "💙"}.get(c["canal"], "📱")
+        canal_emoji = {"instagram": "📸", "messenger": "💙"}.get(c["canal"], "📱")
+        wa = c.get("whatsapp_cliente") or ""
+        wa_badge = f'<a href="https://wa.me/{wa.replace("+","").replace(" ","")}" target="_blank" style="background:#25D366;color:white;padding:2px 8px;border-radius:20px;font-size:11px;text-decoration:none">📲 {wa}</a>' if wa else '<span style="color:#bbb;font-size:12px">—</span>'
         filas += f"""
         <tr onclick="window.location='/admin/chat/{c['user_id']}'" style="cursor:pointer">
             <td>{canal_emoji} {c['canal']}</td>
-            <td>{c['user_id']}</td>
+            <td style="font-size:12px">{c['user_id']}</td>
             <td>{c['total_mensajes']}</td>
             <td>{c['ultima_intencion'] or '-'}</td>
+            <td onclick="event.stopPropagation()">{wa_badge}</td>
             <td>{ultimo}</td>
             <td>{c['ultimo_contacto'][:16]}</td>
         </tr>"""
@@ -184,7 +154,6 @@ async def panel_admin():
   td {{ padding: 12px 16px; border-bottom: 1px solid #f0ece8; font-size: 13px; }}
   tr:hover td {{ background: #fdf6f0; }}
   tr:last-child td {{ border-bottom: none; }}
-  .badge {{ background: #f0ece8; padding: 2px 8px; border-radius: 20px; font-size: 11px; }}
 </style>
 </head><body>
 <header>
@@ -198,8 +167,8 @@ async def panel_admin():
 </div>
 <div class="tabla-wrap">
   <table>
-    <thead><tr><th>Canal</th><th>Cliente</th><th>Mensajes</th><th>Última intención</th><th>Último mensaje</th><th>Fecha</th></tr></thead>
-    <tbody>{filas if filas else '<tr><td colspan="6" style="text-align:center;padding:40px;color:#aaa">Sin conversaciones aún</td></tr>'}</tbody>
+    <thead><tr><th>Canal</th><th>Cliente ID</th><th>Msgs</th><th>Última intención</th><th>WhatsApp</th><th>Último mensaje</th><th>Fecha</th></tr></thead>
+    <tbody>{filas if filas else '<tr><td colspan="7" style="text-align:center;padding:40px;color:#aaa">Sin conversaciones aún</td></tr>'}</tbody>
   </table>
 </div>
 </body></html>"""
@@ -208,7 +177,6 @@ async def panel_admin():
 
 @app.get("/admin/chat/{user_id}")
 async def ver_chat(user_id: str):
-    from fastapi.responses import HTMLResponse
     mensajes = obtener_conversacion(user_id, limite=100)
 
     burbujas = ""
@@ -247,37 +215,19 @@ async def ver_chat(user_id: str):
     return HTMLResponse(html)
 
 
-@app.post("/sms")
-async def recibir_sms_twilio(request: Request):
-    """Recibe SMS entrantes de Twilio — muestra el código de verificación de Meta."""
-    form = await request.form()
-    remitente = form.get("From", "desconocido")
-    cuerpo = form.get("Body", "")
-    print(f"\n{'='*50}")
-    print(f"📱 SMS recibido de: {remitente}")
-    print(f"💬 Contenido: {cuerpo}")
-    print(f"{'='*50}\n")
-    return PlainTextResponse(
-        '<?xml version="1.0" encoding="UTF-8"?><Response></Response>',
-        media_type="application/xml"
-    )
-
-
 @app.post("/test")
 async def test_agente(request: Request):
     """Prueba los agentes sin pasar por Meta."""
     body = await request.json()
     mensaje = body.get("mensaje", "Hola")
-    canal = body.get("canal", "whatsapp")
+    canal = body.get("canal", "instagram")
     user_id = body.get("user_id", "test_user")
 
-    if canal == "whatsapp":
-        return procesar_mensaje(user_id, mensaje, canal)
-    elif canal == "instagram":
+    if canal == "instagram":
         return {"respuesta": procesar_instagram(user_id, mensaje)}
     elif canal == "messenger":
         return {"respuesta": procesar_messenger(user_id, mensaje)}
-    return {"error": "canal no válido"}
+    return {"error": "canal no válido (usa instagram o messenger)"}
 
 
 if __name__ == "__main__":
