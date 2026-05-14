@@ -17,7 +17,9 @@ from api.meta_webhook import (
     extraer_mensaje_instagram,
     extraer_mensaje_messenger,
 )
-from api.meta_client import enviar_mensaje
+from api.meta_client import enviar_mensaje, obtener_nombre_instagram, obtener_nombre_messenger
+
+_nombres_cache: dict[str, str] = {}
 
 app = FastAPI(
     title="Elvi — Sistema Multi-Agente de Ventas",
@@ -77,7 +79,10 @@ async def recibir_mensaje(request: Request):
             if not datos:
                 return JSONResponse({"status": "ok", "msg": "sin mensaje"})
             user_id, recipient_id, mensaje = datos
-            respuesta = procesar_instagram(user_id, mensaje)
+            if user_id not in _nombres_cache:
+                _nombres_cache[user_id] = await obtener_nombre_instagram(user_id) or ""
+            nombre = _nombres_cache[user_id] or None
+            respuesta = procesar_instagram(user_id, mensaje, nombre)
             resultado = await enviar_mensaje("instagram", recipient_id, respuesta)
             print(f"[META-SEND] {resultado}")
 
@@ -87,7 +92,10 @@ async def recibir_mensaje(request: Request):
             if not datos:
                 return JSONResponse({"status": "ok", "msg": "sin mensaje"})
             user_id, recipient_id, mensaje = datos
-            respuesta = procesar_messenger(user_id, mensaje)
+            if user_id not in _nombres_cache:
+                _nombres_cache[user_id] = await obtener_nombre_messenger(user_id) or ""
+            nombre = _nombres_cache[user_id] or None
+            respuesta = procesar_messenger(user_id, mensaje, nombre)
             resultado = await enviar_mensaje("messenger", recipient_id, respuesta)
             print(f"[META-SEND] {resultado}")
 

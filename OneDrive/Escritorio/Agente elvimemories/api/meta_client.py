@@ -130,3 +130,36 @@ async def enviar_mensaje(canal: str, recipient_id: str, mensaje: str) -> dict:
         return await enviar_messenger(recipient_id, mensaje)
     else:
         raise ValueError(f"Canal no soportado: {canal}")
+
+
+async def obtener_nombre_instagram(sender_id: str) -> str | None:
+    """Obtiene el nombre del usuario de Instagram via Graph API."""
+    if not META_INSTAGRAM_TOKEN:
+        return None
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            response = await client.get(
+                f"https://graph.instagram.com/v23.0/{sender_id}",
+                params={"fields": "name", "access_token": META_INSTAGRAM_TOKEN},
+            )
+            data = response.json()
+            return data.get("name") or None
+    except Exception:
+        return None
+
+
+async def obtener_nombre_messenger(sender_id: str) -> str | None:
+    """Obtiene el nombre del usuario de Messenger via Graph API."""
+    if not META_PAGE_ACCESS_TOKEN:
+        return None
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            response = await client.get(
+                f"https://graph.facebook.com/v20.0/{sender_id}",
+                params={"fields": "first_name,last_name", "access_token": META_PAGE_ACCESS_TOKEN},
+            )
+            data = response.json()
+            nombre = (data.get("first_name", "") + " " + data.get("last_name", "")).strip()
+            return nombre or None
+    except Exception:
+        return None

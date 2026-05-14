@@ -88,7 +88,22 @@ NUNCA
 - Cierres la conversación sin tener los 5 datos del perfil completo"""
 
 
-def procesar_messenger(user_id: str, mensaje: str) -> str:
+def _build_system_prompt(nombre: str | None) -> str:
+    if not nombre:
+        return SYSTEM_PROMPT
+    primer_nombre = nombre.strip().split()[0]
+    return SYSTEM_PROMPT + f"""
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOMBRE DEL USUARIO (dato real de su perfil)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+El nombre de quien escribe es: {nombre}
+- Usa "{primer_nombre}" para personalizar el saludo si quieres (no es obligatorio en cada mensaje)
+- Determina el género por el nombre: si es claramente femenino usa "hermosa"/"linda"/"amor"; si es claramente masculino usa trato cálido neutro; si es ambiguo espera cues de la conversación
+- Si el nombre es ambiguo (ej: Alex, Camille, Andrea) → saluda neutro y espera confirmación en la charla"""
+
+
+def procesar_messenger(user_id: str, mensaje: str, nombre: str | None = None) -> str:
     historial_db = obtener_conversacion(user_id, limite=12)
     historial = [
         {"role": m["rol"], "content": m["contenido"]}
@@ -101,7 +116,7 @@ def procesar_messenger(user_id: str, mensaje: str) -> str:
         max_tokens=400,
         system=[{
             "type": "text",
-            "text": SYSTEM_PROMPT,
+            "text": _build_system_prompt(nombre),
             "cache_control": {"type": "ephemeral"},
         }],
         messages=historial,
