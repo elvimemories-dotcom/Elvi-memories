@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Elvi Memories — Contrato de Sesión Fotográfica</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; color: #333; }
+    h1 { color: #c87d5e; border-bottom: 2px solid #c87d5e; padding-bottom: 10px; }
+    h2 { color: #c87d5e; margin-top: 30px; }
+    .info-box { background: #fff8f5; border-left: 4px solid #c87d5e; padding: 15px; margin: 20px 0; }
+    .firma-area { margin-top: 60px; display: flex; justify-content: space-between; }
+    .firma-linea { border-top: 1px solid #333; width: 200px; text-align: center; padding-top: 5px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    td, th { border: 1px solid #ddd; padding: 10px; }
+    th { background: #c87d5e; color: white; }
+    .logo { text-align: center; font-size: 24px; color: #c87d5e; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <div class="logo">🤍 ELVI MEMORIES</div>
+  <h1>Contrato de Sesión Fotográfica</h1>
+  <p><strong>Folio:</strong> EM-{{ fecha | replace('/', '') }}-{{ nombre_cliente[:3] | upper }}</p>
+  <p><strong>Fecha:</strong> {{ fecha }}</p>
+
+  <h2>Datos del Cliente</h2>
+  <div class="info-box">
+    <p><strong>Nombre:</strong> {{ nombre_cliente }}<br>
+    <strong>Correo:</strong> {{ email_cliente }}</p>
+  </div>
+
+  <h2>Sesión Contratada</h2>
+  <table>
+    <tr><th>Paquete / Sesión</th><th>Inversión</th></tr>
+    <tr><td>{{ paquete }}</td><td>{{ precio }}</td></tr>
+  </table>
+
+  <h2>Términos y Condiciones</h2>
+  <ol>
+    <li>La sesión se realiza previa reserva y pago de anticipo del 50%.</li>
+    <li>Las fotos editadas se entregan en un plazo de 7-10 días hábiles.</li>
+    <li>Cancelaciones con más de 48 hrs: reagendamiento sin costo. Menos de 48 hrs: se pierde el anticipo.</li>
+    <li>Las fotografías son de uso personal. Para uso comercial se requiere autorización.</li>
+    <li>Elvi Memories puede usar las fotos en su portafolio salvo indicación contraria.</li>
+  </ol>
+
+  <div class="firma-area">
+    <div>
+      <div class="firma-linea">Elvi Memories</div><br>Fotógrafa<br>Fecha: ________
+    </div>
+    <div>
+      <div class="firma-linea">Firma del Cliente</div><br>{{ nombre_cliente }}<br>Fecha: ________
+    </div>
+  </div>
+</body>
+</html>
