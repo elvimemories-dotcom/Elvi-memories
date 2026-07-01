@@ -179,6 +179,76 @@
       box-shadow: 0 8px 24px rgba(37,211,102,0.3);
     }
 
+    /* ── PDF MODAL ── */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(8,4,14,0.92);
+      flex-direction: column;
+    }
+    .pdf-modal.open { display: flex; }
+    .pdf-modal__bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .pdf-modal__title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+    .pdf-modal__close {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .pdf-modal__close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .pdf-modal__frame {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #525659;
+    }
+    .pdf-modal__fallback {
+      display: none;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+    .pdf-modal__fallback p { opacity: 0.7; font-size: 0.9rem; }
+    .pdf-modal__dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: white;
+      border-radius: 8px;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 500;
+    }
+
     @media (max-width: 600px) {
       .paq-page { padding: 100px 0 60px; }
       .services-grid { grid-template-columns: 1fr; }
@@ -236,7 +306,7 @@
       <div class="services-grid">
 
         <!-- Cumpleaños -->
-        <a class="svc-card reveal" href="pdfs/cumpleanos.pdf" target="_blank" rel="noopener">
+        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/cumpleanos.pdf','Cumpleaños');return false;">
           <div class="svc-icon">🎂</div>
           <div class="svc-name">Cumpleaños</div>
           <p class="svc-desc">Set unicolor o decorativo, globos, pastel, sparkles. Desde $300.</p>
@@ -247,7 +317,7 @@
         </a>
 
         <!-- Maternidad -->
-        <a class="svc-card reveal" href="pdfs/gestacion.pdf" target="_blank" rel="noopener">
+        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/gestacion.pdf','Maternidad');return false;">
           <div class="svc-icon">🤍</div>
           <div class="svc-name">Maternidad</div>
           <p class="svc-desc">Estudio o exterior, fantasía artística. Desde $300.</p>
@@ -258,7 +328,7 @@
         </a>
 
         <!-- Bodas -->
-        <a class="svc-card reveal" href="pdfs/bodas.pdf" target="_blank" rel="noopener">
+        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/bodas.pdf','Bodas');return false;">
           <div class="svc-icon">💍</div>
           <div class="svc-name">Bodas</div>
           <p class="svc-desc">Propuesta, Save the Date, Civil, Full Experiencia. Desde $300.</p>
@@ -269,7 +339,7 @@
         </a>
 
         <!-- Kids -->
-        <a class="svc-card reveal" href="pdfs/kids.pdf" target="_blank" rel="noopener">
+        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/kids.pdf','Kids');return false;">
           <div class="svc-icon">🌸</div>
           <div class="svc-name">Kids</div>
           <p class="svc-desc">Bebés y niños. Set unicolor, decorativo o fantasía artística. Desde $300.</p>
@@ -280,7 +350,7 @@
         </a>
 
         <!-- XV Años -->
-        <a class="svc-card reveal" href="pdfs/xv-anos.pdf" target="_blank" rel="noopener">
+        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/xv-anos.pdf','XV Años');return false;">
           <div class="svc-icon">✨</div>
           <div class="svc-name">XV Años</div>
           <p class="svc-desc">Paquete pequeño, A tu Medida o Full Experiencia. Desde $400.</p>
@@ -291,7 +361,7 @@
         </a>
 
         <!-- Familia -->
-        <a class="svc-card reveal" href="pdfs/familia.pdf" target="_blank" rel="noopener">
+        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/familia.pdf','Familia');return false;">
           <div class="svc-icon">👨‍👩‍👧</div>
           <div class="svc-name">Familia</div>
           <p class="svc-desc">Sesiones para toda la familia, estudio o exterior.</p>
@@ -302,7 +372,7 @@
         </a>
 
         <!-- Retrato / Modelo -->
-        <a class="svc-card reveal" href="pdfs/retrato.pdf" target="_blank" rel="noopener">
+        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/retrato.pdf','Retrato & Modelo');return false;">
           <div class="svc-icon">📸</div>
           <div class="svc-name">Retrato &amp; Modelo</div>
           <p class="svc-desc">Sesiones de retrato profesional y portafolio de modelo.</p>
@@ -313,7 +383,7 @@
         </a>
 
         <!-- Revelación de sexo -->
-        <a class="svc-card svc-card--new reveal" href="pdfs/revelacion-sexo.pdf" target="_blank" rel="noopener">
+        <a class="svc-card svc-card--new reveal" href="#" onclick="openPdf('pdfs/revelacion-sexo.pdf','Revelación de Sexo');return false;">
           <span class="svc-badge">Nuevo</span>
           <div class="svc-icon">🩵🩷</div>
           <div class="svc-name">Revelación de Sexo</div>
@@ -325,7 +395,7 @@
         </a>
 
         <!-- Nuevo cliente -->
-        <a class="svc-card reveal" href="pdfs/nuevo-cliente.pdf" target="_blank" rel="noopener">
+        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/nuevo-cliente.pdf','Nuevo Cliente');return false;">
           <div class="svc-icon">💜</div>
           <div class="svc-name">Nuevo Cliente</div>
           <p class="svc-desc">Toda la información para comenzar: proceso, pagos y preguntas frecuentes.</p>
@@ -403,6 +473,62 @@
     </div>
   </footer>
 
+  <!-- PDF MODAL -->
+  <div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true">
+    <div class="pdf-modal__bar">
+      <span class="pdf-modal__title" id="pdfModalTitle">Paquetes</span>
+      <button class="pdf-modal__close" onclick="closePdf()">✕ Cerrar</button>
+    </div>
+    <iframe class="pdf-modal__frame" id="pdfFrame" title="Paquetes PDF" src=""></iframe>
+    <div class="pdf-modal__fallback" id="pdfFallback">
+      <p>Tu dispositivo no puede mostrar el PDF directamente.<br>Tócalo para abrirlo.</p>
+      <a class="pdf-modal__dl" id="pdfFallbackLink" href="#" target="_blank">Ver / Guardar PDF</a>
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <script>
+    function openPdf(src, title) {
+      var modal = document.getElementById('pdfModal');
+      var frame = document.getElementById('pdfFrame');
+      var label = document.getElementById('pdfModalTitle');
+      var fallback = document.getElementById('pdfFallback');
+      var dlLink = document.getElementById('pdfFallbackLink');
+
+      label.textContent = title;
+      frame.src = src;
+      dlLink.href = src;
+      fallback.style.display = 'none';
+      frame.style.display = 'block';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      // Si el iframe no carga el PDF (mobile), mostrar fallback
+      frame.onload = function() {
+        try {
+          // Si el contenido es vacío o error, mostrar fallback
+          if (!frame.contentDocument || frame.contentDocument.body.innerHTML === '') {
+            frame.style.display = 'none';
+            fallback.style.display = 'flex';
+          }
+        } catch(e) {
+          // Cross-origin = probablemente cargó bien
+        }
+      };
+    }
+
+    function closePdf() {
+      var modal = document.getElementById('pdfModal');
+      var frame = document.getElementById('pdfFrame');
+      modal.classList.remove('open');
+      frame.src = '';
+      document.body.style.overflow = '';
+    }
+
+    // Cerrar con Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePdf();
+    });
+  </script>
 </body>
 </html>
