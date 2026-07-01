@@ -11,15 +11,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* ── PAGE LAYOUT ── */
+    /* ── PAGE ── */
     .paq-page {
       min-height: 100vh;
-      padding: 120px 0 80px;
-      background: var(--bg);
+      padding: 120px 0 100px;
+      background: radial-gradient(ellipse 80% 40% at 15% 0%, rgba(139,95,168,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 30% at 85% 5%, rgba(196,160,220,0.06) 0%, transparent 55%),
+                  var(--bg);
     }
+
+
+    /* ── HEADER ── */
     .paq-header {
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 48px;
+      padding: 0 24px;
     }
     .paq-header__label {
       display: block;
@@ -28,7 +34,7 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
     .paq-header__title {
       font-family: var(--font-display);
@@ -36,67 +42,114 @@
       font-weight: 300;
       letter-spacing: -0.03em;
       line-height: 1;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
     .paq-header__title em { font-style: italic; }
     .paq-header__sub {
       font-size: 1rem;
       color: var(--text-muted);
       max-width: 420px;
-      margin: 0 auto;
+      margin: 0 auto 28px;
       line-height: 1.65;
     }
+    .paq-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      max-width: 260px;
+      margin: 0 auto;
+      color: rgba(139,95,168,0.55);
+      font-size: 0.8rem;
+    }
+    .paq-divider::before, .paq-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(139,95,168,0.35), transparent);
+    }
+
 
     /* ── GRID ── */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 960px;
+      gap: 22px;
+      max-width: 980px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
     /* ── SERVICE CARD ── */
     .svc-card {
-      background: white;
+      background: #fff;
       border: 1.5px solid var(--border);
       border-radius: 20px;
-      padding: 36px 28px 30px;
+      padding: 0 0 28px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 12px;
       text-decoration: none;
       color: var(--text);
-      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-    }
-    .svc-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(139,95,168,0.04) 0%, transparent 70%);
+      /* entrance state */
       opacity: 0;
-      transition: opacity 0.3s;
+      transform: translateY(32px);
+      transition:
+        opacity 0.65s ease,
+        transform 0.65s cubic-bezier(.22,.61,.36,1),
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+    .svc-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .svc-card:hover {
       border-color: var(--accent);
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(139,95,168,0.15);
+      transform: translateY(-7px) !important;
+      box-shadow: 0 24px 52px rgba(139,95,168,0.18);
     }
-    .svc-card:hover::before { opacity: 1; }
 
+    /* Cover image */
+    .svc-cover {
+      width: 100%;
+      height: 192px;
+      overflow: hidden;
+      border-radius: 18px 18px 0 0;
+      flex-shrink: 0;
+      background: #ece5f5;
+    }
+    .svc-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(.22,.61,.36,1);
+      display: block;
+    }
+    .svc-card:hover .svc-cover img {
+      transform: scale(1.07);
+    }
+
+    /* Content area */
+    .svc-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 28px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
     .svc-icon {
-      font-size: 3rem;
+      font-size: 2rem;
       line-height: 1;
-      margin-bottom: 4px;
     }
     .svc-name {
       font-family: var(--font-display);
-      font-size: 1.7rem;
+      font-size: 1.65rem;
       font-weight: 400;
       letter-spacing: -0.01em;
       line-height: 1.1;
@@ -114,12 +167,12 @@
       gap: 8px;
       background: var(--accent);
       color: white;
-      border-radius: 8px;
+      border-radius: 9px;
       padding: 12px 24px;
       font-family: var(--font-body);
       font-size: 0.84rem;
       font-weight: 500;
-      transition: all 0.25s;
+      transition: background 0.25s, box-shadow 0.25s;
       width: 100%;
       justify-content: center;
     }
@@ -127,38 +180,51 @@
       background: var(--accent-hover);
       box-shadow: 0 8px 24px rgba(139,95,168,0.35);
     }
-    .svc-btn svg {
-      width: 16px; height: 16px;
-      flex-shrink: 0;
-    }
+    .svc-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 
-    /* ── CARD HIGHLIGHT ── */
-    .svc-card--new {
-      border-color: rgba(139,95,168,0.35);
-    }
-    .svc-card--new .svc-badge {
+    /* Badge "Nuevo" */
+    .svc-badge {
       position: absolute;
-      top: 14px; right: 14px;
+      top: 12px; right: 12px;
       background: var(--accent);
       color: white;
       font-size: 0.58rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 3px 8px;
+      padding: 3px 10px;
       border-radius: 100px;
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(139,95,168,0.4);
     }
 
-    /* ── BOTTOM NOTE ── */
+    /* ── WHATSAPP SECTION ── */
     .paq-note {
+      max-width: 500px;
+      margin: 72px auto 0;
+      padding: 44px 40px;
       text-align: center;
-      margin-top: 56px;
-      padding: 0 24px;
+      background: linear-gradient(135deg, rgba(139,95,168,0.065) 0%, rgba(196,160,220,0.04) 100%);
+      border: 1px solid rgba(139,95,168,0.2);
+      border-radius: 26px;
+    }
+    .paq-note__eyebrow {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
     }
     .paq-note p {
-      font-size: 0.88rem;
+      font-size: 0.95rem;
       color: var(--text-muted);
-      margin-bottom: 18px;
+      margin-bottom: 24px;
+      line-height: 1.65;
+      max-width: 340px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .paq-note__wa {
       display: inline-flex;
@@ -166,17 +232,18 @@
       gap: 10px;
       background: #25D366;
       color: white;
-      border-radius: 10px;
-      padding: 14px 28px;
-      font-size: 0.9rem;
+      border-radius: 12px;
+      padding: 14px 30px;
+      font-size: 0.92rem;
       font-weight: 600;
       text-decoration: none;
-      transition: all 0.25s;
+      transition: all 0.28s;
+      box-shadow: 0 4px 18px rgba(37,211,102,0.22);
     }
     .paq-note__wa:hover {
       background: #1ebe5d;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(37,211,102,0.38);
     }
 
     /* ── PDF MODAL ── */
@@ -185,42 +252,48 @@
       position: fixed;
       inset: 0;
       z-index: 999;
-      background: #2b2b2b;
+      background: #1e1e1e;
       flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.22s ease;
     }
-    .pdf-modal.open { display: flex; }
+    .pdf-modal.open       { display: flex; }
+    .pdf-modal.open.anim  { opacity: 1; }
+
     .pdf-modal__bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 18px;
-      background: #1a1a1a;
+      padding: 13px 20px;
+      background: #111;
       flex-shrink: 0;
       gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
     .pdf-modal__title {
       font-family: var(--font-display);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 400;
       color: white;
     }
     .pdf-modal__info {
       font-size: 0.75rem;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.38);
       margin-left: 4px;
     }
     .pdf-modal__close {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 7px;
-      padding: 7px 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 8px;
+      padding: 8px 18px;
       font-size: 0.8rem;
       cursor: pointer;
       color: white;
       white-space: nowrap;
       flex-shrink: 0;
+      transition: background 0.2s;
     }
-    .pdf-modal__close:hover { background: rgba(255,255,255,0.18); }
+    .pdf-modal__close:hover { background: rgba(255,255,255,0.16); }
 
     .pdf-modal__scroll {
       flex: 1;
@@ -228,33 +301,36 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 12px;
-      gap: 12px;
+      padding: 24px 16px;
+      gap: 14px;
     }
     .pdf-modal__scroll canvas {
       max-width: 100%;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 6px 32px rgba(0,0,0,0.65);
       display: block;
+      border-radius: 4px;
     }
     .pdf-modal__loading {
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.5);
       font-size: 0.9rem;
-      padding: 60px 20px;
+      padding: 80px 20px;
       text-align: center;
+      line-height: 2;
     }
     .pdf-modal__loading span {
-      display: block;
-      font-size: 2rem;
-      margin-bottom: 12px;
+      font-size: 2.2rem;
+      margin-bottom: 14px;
       animation: spin 1.2s linear infinite;
-      display: inline-block;
+      display: block;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
-      .paq-page { padding: 100px 0 60px; }
+      .paq-page   { padding: 100px 0 70px; }
       .services-grid { grid-template-columns: 1fr; }
-      .svc-card { padding: 28px 22px 24px; }
+      .svc-content   { padding: 16px 22px 0; }
+      .paq-note  { padding: 32px 24px; margin: 52px 16px 0; }
     }
   </style>
 </head>
@@ -299,124 +375,148 @@
 
   <main id="contenido">
     <section class="paq-page">
+
+      <!-- Header -->
       <div class="paq-header">
         <span class="paq-header__label">Elvi Memories · Lawrenceville, GA</span>
         <h1 class="paq-header__title">Elige tu<br><em>sesión</em></h1>
         <p class="paq-header__sub">Toca el servicio que te interesa para ver todos los paquetes, precios e información detallada.</p>
+        <div class="paq-divider"><span>✦</span></div>
       </div>
 
+      <!-- Grid de servicios -->
       <div class="services-grid">
 
-        <!-- Cumpleaños -->
-        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/cumpleanos.pdf','Cumpleaños');return false;">
-          <div class="svc-icon">🎂</div>
-          <div class="svc-name">Cumpleaños</div>
-          <p class="svc-desc">Set unicolor o decorativo, globos, pastel, sparkles. Desde $300.</p>
-          <span class="svc-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Ver paquetes PDF
-          </span>
+        <a class="svc-card" href="#" onclick="openPdf('pdfs/cumpleanos.pdf','Cumpleaños');return false;" data-i="0">
+          <div class="svc-cover"><img src="imagenes/pdf/cumple_hero.jpeg" alt="Cumpleaños" loading="lazy"></div>
+          <div class="svc-content">
+            <div class="svc-icon">🎂</div>
+            <div class="svc-name">Cumpleaños</div>
+            <p class="svc-desc">Set unicolor o decorativo, globos, pastel, sparkles. Desde $300.</p>
+            <span class="svc-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Ver paquetes
+            </span>
+          </div>
         </a>
 
-        <!-- Maternidad -->
-        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/gestacion.pdf','Maternidad');return false;">
-          <div class="svc-icon">🤍</div>
-          <div class="svc-name">Maternidad</div>
-          <p class="svc-desc">Estudio o exterior, fantasía artística. Desde $300.</p>
-          <span class="svc-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Ver paquetes PDF
-          </span>
+        <a class="svc-card" href="#" onclick="openPdf('pdfs/gestacion.pdf','Maternidad');return false;" data-i="1">
+          <div class="svc-cover"><img src="imagenes/pdf/mat_hero.jpeg" alt="Maternidad" loading="lazy"></div>
+          <div class="svc-content">
+            <div class="svc-icon">🤍</div>
+            <div class="svc-name">Maternidad</div>
+            <p class="svc-desc">Estudio o exterior, fantasía artística. Desde $300.</p>
+            <span class="svc-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Ver paquetes
+            </span>
+          </div>
         </a>
 
-        <!-- Bodas -->
-        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/bodas.pdf','Bodas');return false;">
-          <div class="svc-icon">💍</div>
-          <div class="svc-name">Bodas</div>
-          <p class="svc-desc">Propuesta, Save the Date, Civil, Full Experiencia. Desde $300.</p>
-          <span class="svc-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Ver paquetes PDF
-          </span>
+        <a class="svc-card" href="#" onclick="openPdf('pdfs/bodas.pdf','Bodas');return false;" data-i="2">
+          <div class="svc-cover"><img src="imagenes/pdf/boda_hero.jpeg" alt="Bodas" loading="lazy"></div>
+          <div class="svc-content">
+            <div class="svc-icon">💍</div>
+            <div class="svc-name">Bodas</div>
+            <p class="svc-desc">Propuesta, Save the Date, Civil, Full Experiencia. Desde $300.</p>
+            <span class="svc-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Ver paquetes
+            </span>
+          </div>
         </a>
 
-        <!-- Kids -->
-        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/kids.pdf','Kids');return false;">
-          <div class="svc-icon">🌸</div>
-          <div class="svc-name">Kids</div>
-          <p class="svc-desc">Bebés y niños. Set unicolor, decorativo o fantasía artística. Desde $300.</p>
-          <span class="svc-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Ver paquetes PDF
-          </span>
+        <a class="svc-card" href="#" onclick="openPdf('pdfs/kids.pdf','Kids');return false;" data-i="3">
+          <div class="svc-cover"><img src="imagenes/pdf/kids_hero.jpeg" alt="Kids" loading="lazy"></div>
+          <div class="svc-content">
+            <div class="svc-icon">🌸</div>
+            <div class="svc-name">Kids</div>
+            <p class="svc-desc">Bebés y niños. Set unicolor, decorativo o fantasía artística. Desde $300.</p>
+            <span class="svc-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Ver paquetes
+            </span>
+          </div>
         </a>
 
-        <!-- XV Años -->
-        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/xv-anos.pdf','XV Años');return false;">
-          <div class="svc-icon">✨</div>
-          <div class="svc-name">XV Años</div>
-          <p class="svc-desc">Paquete pequeño, A tu Medida o Full Experiencia. Desde $400.</p>
-          <span class="svc-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Ver paquetes PDF
-          </span>
+        <a class="svc-card" href="#" onclick="openPdf('pdfs/xv-anos.pdf','XV Años');return false;" data-i="4">
+          <div class="svc-cover"><img src="imagenes/pdf/xv_hero.jpeg" alt="XV Años" loading="lazy"></div>
+          <div class="svc-content">
+            <div class="svc-icon">✨</div>
+            <div class="svc-name">XV Años</div>
+            <p class="svc-desc">Paquete pequeño, A tu Medida o Full Experiencia. Desde $400.</p>
+            <span class="svc-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Ver paquetes
+            </span>
+          </div>
         </a>
 
-        <!-- Familia -->
-        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/familia.pdf','Familia');return false;">
-          <div class="svc-icon">👨‍👩‍👧</div>
-          <div class="svc-name">Familia</div>
-          <p class="svc-desc">Sesiones para toda la familia, estudio o exterior.</p>
-          <span class="svc-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Ver paquetes PDF
-          </span>
+        <a class="svc-card" href="#" onclick="openPdf('pdfs/familia.pdf','Familia');return false;" data-i="5">
+          <div class="svc-cover"><img src="imagenes/pdf/mat_gal4.jpeg" alt="Familia" loading="lazy"></div>
+          <div class="svc-content">
+            <div class="svc-icon">👨‍👩‍👧</div>
+            <div class="svc-name">Familia</div>
+            <p class="svc-desc">Sesiones para toda la familia, estudio o exterior.</p>
+            <span class="svc-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Ver paquetes
+            </span>
+          </div>
         </a>
 
-        <!-- Retrato / Modelo -->
-        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/retrato.pdf','Retrato & Modelo');return false;">
-          <div class="svc-icon">📸</div>
-          <div class="svc-name">Retrato &amp; Modelo</div>
-          <p class="svc-desc">Sesiones de retrato profesional y portafolio de modelo.</p>
-          <span class="svc-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Ver paquetes PDF
-          </span>
+        <a class="svc-card" href="#" onclick="openPdf('pdfs/retrato.pdf','Retrato &amp; Modelo');return false;" data-i="6">
+          <div class="svc-cover"><img src="imagenes/pdf/pareja_estudio.jpeg" alt="Retrato" loading="lazy"></div>
+          <div class="svc-content">
+            <div class="svc-icon">📸</div>
+            <div class="svc-name">Retrato &amp; Modelo</div>
+            <p class="svc-desc">Sesiones de retrato profesional y portafolio de modelo.</p>
+            <span class="svc-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Ver paquetes
+            </span>
+          </div>
         </a>
 
-        <!-- Revelación de sexo -->
-        <a class="svc-card svc-card--new reveal" href="#" onclick="openPdf('pdfs/revelacion-sexo.pdf','Revelación de Sexo');return false;">
+        <a class="svc-card" href="#" onclick="openPdf('pdfs/revelacion-sexo.pdf','Revelación de Sexo');return false;" data-i="7">
           <span class="svc-badge">Nuevo</span>
-          <div class="svc-icon">🩵🩷</div>
-          <div class="svc-name">Revelación de Sexo</div>
-          <p class="svc-desc">Captura el momento más emocionante del embarazo.</p>
-          <span class="svc-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Ver paquetes PDF
-          </span>
+          <div class="svc-cover"><img src="imagenes/pdf/mat_exterior.jpeg" alt="Revelación de Sexo" loading="lazy"></div>
+          <div class="svc-content">
+            <div class="svc-icon">🩵🩷</div>
+            <div class="svc-name">Revelación de Sexo</div>
+            <p class="svc-desc">Captura el momento más emocionante del embarazo.</p>
+            <span class="svc-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Ver paquetes
+            </span>
+          </div>
         </a>
 
-        <!-- Nuevo cliente -->
-        <a class="svc-card reveal" href="#" onclick="openPdf('pdfs/nuevo-cliente.pdf','Nuevo Cliente');return false;">
-          <div class="svc-icon">💜</div>
-          <div class="svc-name">Nuevo Cliente</div>
-          <p class="svc-desc">Toda la información para comenzar: proceso, pagos y preguntas frecuentes.</p>
-          <span class="svc-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Ver información PDF
-          </span>
+        <a class="svc-card" href="#" onclick="openPdf('pdfs/nuevo-cliente.pdf','Nuevo Cliente');return false;" data-i="8">
+          <div class="svc-cover"><img src="imagenes/pdf/mat_gal3.jpeg" alt="Nuevo Cliente" loading="lazy"></div>
+          <div class="svc-content">
+            <div class="svc-icon">💜</div>
+            <div class="svc-name">Nuevo Cliente</div>
+            <p class="svc-desc">Toda la información para comenzar: proceso, pagos y preguntas frecuentes.</p>
+            <span class="svc-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Ver información
+            </span>
+          </div>
         </a>
 
       </div>
 
-      <!-- Nota WhatsApp -->
+      <!-- Sección WhatsApp -->
       <div class="paq-note">
-        <p>¿Tienes preguntas? Escríbeme directamente y con gusto te ayudo a elegir.</p>
+        <span class="paq-note__eyebrow">¿Necesitas ayuda?</span>
+        <p>¿Tienes preguntas? Escríbeme directamente y con gusto te ayudo a elegir la sesión perfecta.</p>
         <a class="paq-note__wa" href="https://wa.me/16787659231?text=Hola!%20Vi%20los%20paquetes%20y%20tengo%20una%20pregunta%20%F0%9F%A4%8D" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Escribir por WhatsApp
         </a>
       </div>
+
     </section>
   </main>
 
@@ -475,7 +575,7 @@
     </div>
   </footer>
 
-  <!-- PDF MODAL con PDF.js (sin descarga, funciona en todos los dispositivos) -->
+  <!-- PDF MODAL con PDF.js -->
   <div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true">
     <div class="pdf-modal__bar">
       <div>
@@ -486,72 +586,79 @@
     </div>
     <div class="pdf-modal__scroll" id="pdfScroll">
       <div class="pdf-modal__loading" id="pdfLoading">
-        <span>⟳</span><br>Cargando paquetes...
+        <span>⟳</span>Cargando paquetes...
       </div>
     </div>
   </div>
 
-  <!-- PDF.js desde CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="script.js"></script>
   <script>
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    var currentPdfSrc = '';
+    /* ── Entrance animation con IntersectionObserver ── */
+    var cards = document.querySelectorAll('.svc-card');
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var card = entry.target;
+        var delay = parseInt(card.getAttribute('data-i') || '0') * 90;
+        setTimeout(function() { card.classList.add('visible'); }, delay);
+        obs.unobserve(card);
+      });
+    }, { threshold: 0.12 });
+    cards.forEach(function(c) { obs.observe(c); });
 
+    /* ── PDF Modal ── */
     function openPdf(src, title) {
       var modal   = document.getElementById('pdfModal');
       var scroll  = document.getElementById('pdfScroll');
       var label   = document.getElementById('pdfModalTitle');
       var info    = document.getElementById('pdfModalInfo');
-      var loading = document.getElementById('pdfLoading');
 
       label.textContent = title;
       info.textContent  = '';
-      scroll.innerHTML  = '';
-      scroll.appendChild(loading);
-      loading.style.display = 'block';
+      scroll.innerHTML  = '<div class="pdf-modal__loading" id="pdfLoading"><span>⟳</span>Cargando...</div>';
+
       modal.classList.add('open');
+      requestAnimationFrame(function() { modal.classList.add('anim'); });
       document.body.style.overflow = 'hidden';
-      currentPdfSrc = src;
 
-      // Añadir timestamp para evitar caché que bloquea
-      var url = src + '?v=' + Date.now();
-
-      pdfjsLib.getDocument(url).promise.then(function(pdf) {
-        loading.style.display = 'none';
+      pdfjsLib.getDocument(src + '?v=' + Date.now()).promise.then(function(pdf) {
+        document.getElementById('pdfLoading').style.display = 'none';
         info.textContent = '· ' + pdf.numPages + ' páginas';
 
         var renderPage = function(num) {
           pdf.getPage(num).then(function(page) {
-            var vw = Math.min(scroll.clientWidth - 24, 900);
+            var vw = Math.min(scroll.clientWidth - 32, 900);
             var viewport = page.getViewport({ scale: vw / page.getViewport({ scale: 1 }).width });
-
             var canvas = document.createElement('canvas');
             canvas.width  = viewport.width;
             canvas.height = viewport.height;
             scroll.appendChild(canvas);
-
             page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport });
-
             if (num < pdf.numPages) renderPage(num + 1);
           });
         };
         renderPage(1);
 
-      }).catch(function(err) {
-        loading.innerHTML = '⚠️ No se pudo cargar el PDF.<br><br>' +
-          '<a href="' + src + '" target="_blank" style="color:#8B5FA8">Abrir en otra ventana</a>';
+      }).catch(function() {
+        document.getElementById('pdfLoading').innerHTML =
+          '⚠️ No se pudo cargar el PDF.<br><br>' +
+          '<a href="' + src + '" target="_blank" style="color:#a87dc8">Abrir en otra ventana</a>';
       });
     }
 
     function closePdf() {
-      document.getElementById('pdfModal').classList.remove('open');
-      document.getElementById('pdfScroll').innerHTML =
-        '<div class="pdf-modal__loading" id="pdfLoading"><span>⟳</span><br>Cargando paquetes...</div>';
-      document.body.style.overflow = '';
-      currentPdfSrc = '';
+      var modal = document.getElementById('pdfModal');
+      modal.classList.remove('anim');
+      setTimeout(function() {
+        modal.classList.remove('open');
+        document.getElementById('pdfScroll').innerHTML =
+          '<div class="pdf-modal__loading" id="pdfLoading"><span>⟳</span>Cargando...</div>';
+        document.body.style.overflow = '';
+      }, 230);
     }
 
     document.addEventListener('keydown', function(e) {
