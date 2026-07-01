@@ -4,3 +4,12 @@ compatibility_flags = ["nodejs_compat"]
 
 [assets]
 directory = "."
+exclude = [
+  "pdfs/**",
+  "OneDrive/**",
+  ".github/**",
+  "*.py",
+  "*.md",
+  "*.zip",
+  "*.toml"
+]
