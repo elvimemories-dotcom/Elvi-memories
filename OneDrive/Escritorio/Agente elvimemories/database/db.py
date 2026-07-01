@@ -26,7 +26,8 @@ def init_db():
             primer_contacto TEXT NOT NULL,
             ultimo_contacto TEXT NOT NULL,
             total_mensajes INTEGER DEFAULT 0,
-            whatsapp_cliente TEXT
+            whatsapp_cliente TEXT,
+            perfil_completo INTEGER DEFAULT 0
         );
 
         CREATE TABLE IF NOT EXISTS mensajes (
@@ -49,6 +50,9 @@ def init_db():
             actualizada TEXT NOT NULL
         );
         """)
+        columnas = [r[1] for r in conn.execute("PRAGMA table_info(clientes)").fetchall()]
+        if "perfil_completo" not in columnas:
+            conn.execute("ALTER TABLE clientes ADD COLUMN perfil_completo INTEGER DEFAULT 0")
     print("[DB] Base de datos inicializada")
 
 
@@ -79,6 +83,22 @@ def obtener_conversacion(user_id: str, limite: int = 50) -> list:
             (user_id, limite)
         ).fetchall()
     return [dict(r) for r in reversed(rows)]
+
+
+def marcar_perfil_completo(user_id: str):
+    """Marca que el bot ya completó el descubrimiento con este cliente.
+    A partir de aquí se considera 'cliente con conversación previa establecida'."""
+    with get_conn() as conn:
+        conn.execute("UPDATE clientes SET perfil_completo=1 WHERE user_id=?", (user_id,))
+
+
+def cliente_tiene_perfil_completo(user_id: str) -> bool:
+    """True si ya se completó el flujo de descubrimiento con este cliente alguna vez."""
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT perfil_completo FROM clientes WHERE user_id=?", (user_id,)
+        ).fetchone()
+    return bool(row and row["perfil_completo"])
 
 
 def guardar_whatsapp_cliente(user_id: str, whatsapp: str):

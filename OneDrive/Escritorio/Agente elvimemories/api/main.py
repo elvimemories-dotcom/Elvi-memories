@@ -1,21 +1,30 @@
 """
 SERVIDOR PRINCIPAL — FastAPI
-Recibe webhooks de Meta: Instagram DM y Facebook Messenger.
+Recibe webhooks de Meta: Instagram DM, Facebook Messenger y WhatsApp Business.
 """
 import json
 import os
 from fastapi import FastAPI, Request, Query
 from fastapi.responses import PlainTextResponse, JSONResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from database.db import init_db, obtener_todos_los_clientes, obtener_conversacion, obtener_estadisticas
+from database.db import (
+    init_db,
+    obtener_todos_los_clientes,
+    obtener_conversacion,
+    obtener_estadisticas,
+    cliente_tiene_perfil_completo,
+    guardar_mensaje,
+)
 from agents.instagram_agent import procesar_instagram
 from agents.messenger_agent import procesar_messenger
+from agents.whatsapp_agent import procesar_whatsapp
 from api.meta_webhook import (
     verificar_webhook,
     verificar_firma,
     detectar_canal,
     extraer_mensaje_instagram,
     extraer_mensaje_messenger,
+    extraer_mensaje_whatsapp,
 )
 from api.meta_client import enviar_mensaje, obtener_nombre_instagram, obtener_nombre_messenger
 
@@ -23,8 +32,8 @@ _nombres_cache: dict[str, str] = {}
 
 app = FastAPI(
     title="Elvi — Sistema Multi-Agente de Ventas",
-    description="Automatización de ventas por Instagram y Messenger",
-    version="2.1.0",
+    description="Automatización de ventas por Instagram, Messenger y WhatsApp",
+    version="2.2.0",
 )
 
 @app.on_event("startup")
@@ -79,6 +88,10 @@ async def recibir_mensaje(request: Request):
             if not datos:
                 return JSONResponse({"status": "ok", "msg": "sin mensaje"})
             user_id, recipient_id, mensaje = datos
+            if cliente_tiene_perfil_completo(user_id):
+                guardar_mensaje(user_id, "instagram", "user", mensaje)
+                print(f"[IG] {user_id} | cliente con conversación previa — bot no responde")
+                return JSONResponse({"status": "ok", "msg": "cliente con conversación previa, sin respuesta automática"})
             if user_id not in _nombres_cache:
                 _nombres_cache[user_id] = await obtener_nombre_instagram(user_id) or ""
             nombre = _nombres_cache[user_id] or None
@@ -92,6 +105,10 @@ async def recibir_mensaje(request: Request):
             if not datos:
                 return JSONResponse({"status": "ok", "msg": "sin mensaje"})
             user_id, recipient_id, mensaje = datos
+            if cliente_tiene_perfil_completo(user_id):
+                guardar_mensaje(user_id, "messenger", "user", mensaje)
+                print(f"[FB] {user_id} | cliente con conversación previa — bot no responde")
+                return JSONResponse({"status": "ok", "msg": "cliente con conversación previa, sin respuesta automática"})
             if user_id not in _nombres_cache:
                 _nombres_cache[user_id] = await obtener_nombre_messenger(user_id) or ""
             nombre = _nombres_cache[user_id] or None
@@ -99,8 +116,18 @@ async def recibir_mensaje(request: Request):
             resultado = await enviar_mensaje("messenger", recipient_id, respuesta)
             print(f"[META-SEND] {resultado}")
 
+        # ── WHATSAPP ─────────────────────────────────────────────────────
+        elif canal == "whatsapp":
+            datos = extraer_mensaje_whatsapp(body)
+            if not datos:
+                return JSONResponse({"status": "ok", "msg": "sin mensaje"})
+            numero, _, mensaje = datos
+            respuesta = procesar_whatsapp(numero, mensaje)
+            resultado = await enviar_mensaje("whatsapp", numero, respuesta)
+            print(f"[META-SEND] {resultado}")
+
         else:
-            return JSONResponse({"status": "ok", "msg": "canal no activo"})
+            return JSONResponse({"status": "ok", "msg": "canal no reconocido"})
 
     except Exception as e:
         print(f"[ERROR] {canal}: {e}")
@@ -114,7 +141,7 @@ async def recibir_mensaje(request: Request):
 # ====================================================================
 @app.get("/")
 async def root():
-    return {"mensaje": "Elvi — Sistema Multi-Agente v2.1 activo ✅"}
+    return {"mensaje": "Elvi — Sistema Multi-Agente v2.2 activo ✅ (IG + Messenger + WhatsApp)"}
 
 
 # ====================================================================
@@ -128,7 +155,7 @@ async def panel_admin():
     filas = ""
     for c in clientes:
         ultimo = (c["ultimo_mensaje"] or "")[:60]
-        canal_emoji = {"instagram": "📸", "messenger": "💙"}.get(c["canal"], "📱")
+        canal_emoji = {"instagram": "📸", "messenger": "💙", "whatsapp": "💬"}.get(c["canal"], "📱")
         wa = c.get("whatsapp_cliente") or ""
         wa_badge = f'<a href="https://wa.me/{wa.replace("+","").replace(" ","")}" target="_blank" style="background:#25D366;color:white;padding:2px 8px;border-radius:20px;font-size:11px;text-decoration:none">📲 {wa}</a>' if wa else '<span style="color:#bbb;font-size:12px">—</span>'
         filas += f"""
@@ -235,7 +262,9 @@ async def test_agente(request: Request):
         return {"respuesta": procesar_instagram(user_id, mensaje)}
     elif canal == "messenger":
         return {"respuesta": procesar_messenger(user_id, mensaje)}
-    return {"error": "canal no válido (usa instagram o messenger)"}
+    elif canal == "whatsapp":
+        return {"respuesta": procesar_whatsapp(user_id, mensaje)}
+    return {"error": "canal no válido (usa instagram, messenger o whatsapp)"}
 
 
 if __name__ == "__main__":
