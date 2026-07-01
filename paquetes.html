@@ -3,503 +3,186 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paquetes — Elvi Memories | Fotografía Profesional en Lawrenceville, GA</title>
-  <meta name="description" content="Paquetes de fotografía profesional: cumpleaños, maternidad, pareja, bodas, kids y XV años. Precios claros, entrega en 4 días hábiles." />
+  <title>Paquetes — Elvi Memories</title>
+  <meta name="description" content="Elige tu sesión de fotografía: cumpleaños, maternidad, bodas, kids, XV años, familia y más." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-
-    /* ── HERO PRINCIPAL ──────────────────────────────────── */
-    .paq-hero {
-      height: 90vh;
-      min-height: 580px;
-      position: relative;
-      display: flex;
-      align-items: flex-end;
-      overflow: hidden;
+    /* ── PAGE LAYOUT ── */
+    .paq-page {
+      min-height: 100vh;
+      padding: 120px 0 80px;
+      background: var(--bg);
     }
-    .paq-hero__bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('imagenes/pdf/cumple_hero.jpeg');
-      background-size: cover;
-      background-position: center 15%;
-      transform: scale(1.06);
-      transition: transform 9s ease;
-    }
-    .paq-hero__bg.loaded { transform: scale(1); }
-    .paq-hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top,
-        rgba(8,4,14,0.92) 0%,
-        rgba(8,4,14,0.35) 50%,
-        rgba(8,4,14,0.05) 100%);
-    }
-    .paq-hero__content {
-      position: relative;
-      z-index: 2;
-      padding: 0 0 80px;
-      width: 100%;
-    }
-    .paq-hero__label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      margin-bottom: 14px;
-    }
-    .paq-hero__title {
-      font-family: var(--font-display);
-      font-size: clamp(3.8rem, 8vw, 7rem);
-      font-weight: 300;
-      line-height: 0.92;
-      letter-spacing: -0.03em;
-      color: white;
-      margin-bottom: 22px;
-    }
-    .paq-hero__title em { font-style: italic; }
-    .paq-hero__sub {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.65);
-      max-width: 480px;
-      margin-bottom: 40px;
-      line-height: 1.7;
-    }
-    .paq-hero__pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .paq-hero__pill {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: white;
-      font-size: 0.78rem;
-      font-weight: 500;
-      padding: 9px 18px;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: all 0.3s;
-      backdrop-filter: blur(10px);
-    }
-    .paq-hero__pill:hover {
-      background: rgba(139,95,168,0.55);
-      border-color: var(--accent);
-    }
-
-    /* ── CAT NAV ─────────────────────────────────────────── */
-    .cat-nav {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 72px;
-      z-index: 90;
-    }
-    .cat-nav__inner {
-      display: flex;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .cat-nav__inner::-webkit-scrollbar { display: none; }
-    .cat-nav__link {
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding: 16px 20px;
-      white-space: nowrap;
-      border-bottom: 2px solid transparent;
-      transition: var(--transition);
-    }
-    .cat-nav__link:hover, .cat-nav__link.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
-
-    /* ── CATEGORY SECTION ────────────────────────────────── */
-    .cat-section { padding: 0 0 100px; }
-    .cat-section:nth-child(even) { background: var(--surface); }
-
-    /* Immersive hero de categoría */
-    .cat-imm {
-      height: 70vh;
-      min-height: 500px;
-      position: relative;
-      display: flex;
-      align-items: flex-end;
-      overflow: hidden;
+    .paq-header {
+      text-align: center;
       margin-bottom: 60px;
     }
-    .cat-imm__bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      transition: transform 0.7s ease;
-    }
-    .cat-imm:hover .cat-imm__bg { transform: scale(1.04); }
-    .cat-imm::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top,
-        rgba(8,4,14,0.88) 0%,
-        rgba(8,4,14,0.28) 55%,
-        transparent 100%);
-    }
-    .cat-imm__text {
-      position: relative;
-      z-index: 2;
-      padding: 0 40px 56px;
-    }
-    .cat-imm__label {
+    .paq-header__label {
       display: block;
-      font-size: 0.65rem;
-      letter-spacing: 0.24em;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 10px;
+      color: var(--accent);
+      margin-bottom: 14px;
     }
-    .cat-imm__title {
+    .paq-header__title {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-size: clamp(2.8rem, 6vw, 5rem);
       font-weight: 300;
-      line-height: 0.9;
       letter-spacing: -0.03em;
-      color: white;
-      margin-bottom: 12px;
+      line-height: 1;
+      margin-bottom: 16px;
     }
-    .cat-imm__desc {
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.62);
-      max-width: 540px;
+    .paq-header__title em { font-style: italic; }
+    .paq-header__sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 420px;
+      margin: 0 auto;
       line-height: 1.65;
     }
 
-    /* ── PHOTO STRIP CAROUSEL ────────────────────────────── */
-    @keyframes carousel-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .photo-strip-wrap {
-      padding: 0 0 52px;
-      overflow: hidden;
-      position: relative;
-    }
-    /* fade edges */
-    .photo-strip-wrap::before,
-    .photo-strip-wrap::after {
-      content: '';
-      position: absolute;
-      top: 0; bottom: 52px;
-      width: 80px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .photo-strip-wrap::before {
-      left: 0;
-      background: linear-gradient(to right, var(--bg), transparent);
-    }
-    .photo-strip-wrap::after {
-      right: 0;
-      background: linear-gradient(to left, var(--bg), transparent);
-    }
-    .cat-section:nth-child(even) .photo-strip-wrap::before {
-      background: linear-gradient(to right, var(--surface), transparent);
-    }
-    .cat-section:nth-child(even) .photo-strip-wrap::after {
-      background: linear-gradient(to left, var(--surface), transparent);
-    }
-
-    .photo-strip {
-      display: flex;
-      gap: 20px;
-      width: max-content;
-      padding: 8px 20px;
-      animation: carousel-scroll 28s linear infinite;
-    }
-    .photo-strip:hover { animation-play-state: paused; }
-
-    .photo-circle {
-      width: 145px;
-      height: 145px;
-      border-radius: 50%;
-      object-fit: cover;
-      flex-shrink: 0;
-      border: 3px solid white;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.14);
-      transition: transform 0.35s, box-shadow 0.35s;
-    }
-    .photo-circle:hover {
-      transform: scale(1.1) translateY(-5px);
-      box-shadow: 0 16px 44px rgba(139,95,168,0.28);
-    }
-
-    /* ── PACKAGE CARDS ───────────────────────────────────── */
-    .pkg-grid {
+    /* ── GRID ── */
+    .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
-      gap: 24px;
-      padding: 0 40px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
-    .pkg-card {
+
+    /* ── SERVICE CARD ── */
+    .svc-card {
       background: white;
       border: 1.5px solid var(--border);
       border-radius: 20px;
-      overflow: hidden;
+      padding: 36px 28px 30px;
       display: flex;
       flex-direction: column;
-      transition: var(--transition);
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s ease;
       position: relative;
-    }
-    .cat-section:nth-child(even) .pkg-card { background: var(--bg); }
-    .pkg-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 16px 48px rgba(139,95,168,0.14);
-      transform: translateY(-6px);
-    }
-    .pkg-card--highlight { border-color: var(--accent); }
-    .pkg-card--highlight::before {
-      content: 'Más popular';
-      position: absolute;
-      top: 18px; right: -30px;
-      background: var(--accent);
-      color: white;
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 5px 42px;
-      transform: rotate(45deg);
-      z-index: 3;
-    }
-
-    /* Card photo */
-    .pkg-photo {
-      height: 210px;
       overflow: hidden;
-      position: relative;
-      flex-shrink: 0;
     }
-    .pkg-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.55s ease;
-    }
-    .pkg-card:hover .pkg-photo img { transform: scale(1.06); }
-    .pkg-photo::after {
+    .svc-card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.42) 0%, transparent 55%);
+      background: linear-gradient(135deg, rgba(139,95,168,0.04) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
-    .pkg-photo__price {
-      position: absolute;
-      bottom: 14px;
-      right: 16px;
-      z-index: 2;
-      font-family: var(--font-display);
-      font-size: 2.1rem;
-      font-weight: 400;
-      color: white;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.45);
-      line-height: 1;
+    .svc-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(139,95,168,0.15);
     }
+    .svc-card:hover::before { opacity: 1; }
 
-    /* Card body */
-    .pkg-body {
-      padding: 26px 26px 30px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .pkg-tier {
-      font-size: 0.63rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 5px;
-    }
-    .pkg-name {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.12;
+    .svc-icon {
+      font-size: 3rem;
+      line-height: 1;
       margin-bottom: 4px;
     }
-    .pkg-note {
-      font-size: 0.78rem;
+    .svc-name {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+    .svc-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      max-width: 220px;
+    }
+    .svc-btn {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: white;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 500;
+      transition: all 0.25s;
+      width: 100%;
+      justify-content: center;
+    }
+    .svc-card:hover .svc-btn {
+      background: var(--accent-hover);
+      box-shadow: 0 8px 24px rgba(139,95,168,0.35);
+    }
+    .svc-btn svg {
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ── CARD HIGHLIGHT ── */
+    .svc-card--new {
+      border-color: rgba(139,95,168,0.35);
+    }
+    .svc-card--new .svc-badge {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: var(--accent);
+      color: white;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 100px;
+    }
+
+    /* ── BOTTOM NOTE ── */
+    .paq-note {
+      text-align: center;
+      margin-top: 56px;
+      padding: 0 24px;
+    }
+    .paq-note p {
+      font-size: 0.88rem;
       color: var(--text-muted);
       margin-bottom: 18px;
     }
-    .pkg-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0 0 18px;
-    }
-    .pkg-includes {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 24px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .pkg-includes li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 0.84rem;
-      color: var(--text);
-      line-height: 1.45;
-    }
-    .pkg-includes li::before {
-      content: '';
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: rgba(139,95,168,0.1)
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 4.5' stroke='%238B5FA8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E")
-        no-repeat center;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .pkg-deposit {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .pkg-deposit::before { content: '•'; color: var(--accent); font-size: 1.4rem; line-height: 0; }
-    .pkg-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: var(--accent);
-      color: white;
-      border: 1.5px solid var(--accent);
-      border-radius: 8px;
-      padding: 14px 22px;
-      font-family: var(--font-body);
-      font-size: 0.86rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: var(--transition);
-      margin-top: auto;
-    }
-    .pkg-btn:hover {
-      background: var(--accent-hover);
-      border-color: var(--accent-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(139,95,168,0.3);
-    }
-    .pkg-btn--outline {
-      background: transparent;
-      color: var(--accent);
-    }
-    .pkg-btn--outline:hover { background: var(--accent); color: white; }
-
-    /* Custom/contacto card */
-    .pkg-card--custom {
-      border-style: dashed;
-      border-color: rgba(139,95,168,0.3);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 48px 28px;
-      gap: 12px;
-      min-height: 320px;
-    }
-    .pkg-card--custom:hover { border-color: var(--accent); background: rgba(139,95,168,0.03) !important; }
-    .pkg-card--custom .custom-icon { font-size: 2.8rem; }
-    .pkg-card--custom .pkg-name { font-size: 1.35rem; }
-    .pkg-card--custom p { color: var(--text-muted); font-size: 0.86rem; max-width: 210px; line-height: 1.55; margin:0; }
-
-    /* ── DEPOSITO BAND ───────────────────────────────────── */
-    .deposito-band {
-      background: var(--accent);
-      color: white;
-      padding: 80px 0;
-      text-align: center;
-    }
-    .deposito-band__label {
-      font-size: 0.68rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      opacity: 0.6;
-      margin-bottom: 14px;
-    }
-    .deposito-band__title {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      margin-bottom: 52px;
-      line-height: 1.08;
-    }
-    .deposito-steps {
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      flex-wrap: wrap;
-      margin-bottom: 52px;
-    }
-    .deposito-step { max-width: 190px; }
-    .deposito-step__num {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.14);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      margin: 0 auto 12px;
-    }
-    .deposito-step h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
-    .deposito-step p { font-size: 0.8rem; opacity: 0.72; line-height: 1.55; }
-    .zelle-badge {
+    .paq-note__wa {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: rgba(255,255,255,0.12);
-      border: 1.5px solid rgba(255,255,255,0.25);
+      background: #25D366;
+      color: white;
       border-radius: 10px;
       padding: 14px 28px;
-      font-size: 0.94rem;
-      font-weight: 500;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .paq-note__wa:hover {
+      background: #1ebe5d;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,211,102,0.3);
     }
 
-    /* ── RESPONSIVE ──────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .paq-hero { height: 80vh; }
-      .paq-hero__title { font-size: 3rem; }
-      .cat-imm { height: 58vh; min-height: 400px; }
-      .cat-imm__title { font-size: 2.8rem; }
-      .cat-imm__text { padding: 0 20px 40px; }
-      .photo-strip-wrap { padding: 0 20px 44px; }
-      .pkg-grid { padding: 0 20px; grid-template-columns: 1fr; }
-      .cat-nav { top: 60px; }
-      .photo-circle { width: 115px; height: 115px; }
+    @media (max-width: 600px) {
+      .paq-page { padding: 100px 0 60px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .svc-card { padding: 28px 22px 24px; }
     }
   </style>
 </head>
@@ -521,7 +204,7 @@
         <a href="index.html#reserva">Reservar</a>
         <a href="index.html#testimonios">Testimonios</a>
       </nav>
-      <a href="https://wa.me/16787659231?text=Hola!%20Vi%20los%20paquetes%20y%20me%20gustar%C3%ADa%20reservar%20%F0%9F%A4%8D" class="btn btn--outline btn--sm navbar__cta" target="_blank" rel="noopener">Reservar sesión</a>
+      <a href="https://wa.me/16787659231?text=Hola!%20Quiero%20reservar%20una%20sesi%C3%B3n%20%F0%9F%A4%8D" class="btn btn--outline btn--sm navbar__cta" target="_blank" rel="noopener">Reservar sesión</a>
       <button class="navbar__toggle" id="menuToggle" aria-label="Abrir menú">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -543,758 +226,126 @@
   </div>
 
   <main id="contenido">
+    <section class="paq-page">
+      <div class="paq-header">
+        <span class="paq-header__label">Elvi Memories · Lawrenceville, GA</span>
+        <h1 class="paq-header__title">Elige tu<br><em>sesión</em></h1>
+        <p class="paq-header__sub">Toca el servicio que te interesa para ver todos los paquetes, precios e información detallada.</p>
+      </div>
 
-    <!-- ══════════════════════════════════════════════════════
-         HERO PRINCIPAL
-    ══════════════════════════════════════════════════════ -->
-    <section class="paq-hero">
-      <div class="paq-hero__bg" id="heroBg"></div>
-      <div class="paq-hero__content container">
-        <span class="paq-hero__label">Elvi Memories · Lawrenceville, Georgia</span>
-        <h1 class="paq-hero__title">planes &amp;<br><em>paquetes</em></h1>
-        <p class="paq-hero__sub">Cada sesión captura tu esencia, tu personalidad, tu historia y tu belleza en uno de los momentos más importantes de tu vida.</p>
-        <div class="paq-hero__pills">
-          <a href="#cumpleanos" class="paq-hero__pill">🎂 Cumpleaños</a>
-          <a href="#maternidad" class="paq-hero__pill">🤍 Maternidad</a>
-          <a href="#pareja" class="paq-hero__pill">💑 Pareja</a>
-          <a href="#bodas" class="paq-hero__pill">💍 Bodas</a>
-          <a href="#kids" class="paq-hero__pill">🌸 Kids</a>
-          <a href="#xv" class="paq-hero__pill">✨ XV Años</a>
-        </div>
+      <div class="services-grid">
+
+        <!-- Cumpleaños -->
+        <a class="svc-card reveal" href="pdfs/cumpleanos.pdf" target="_blank" rel="noopener">
+          <div class="svc-icon">🎂</div>
+          <div class="svc-name">Cumpleaños</div>
+          <p class="svc-desc">Set unicolor o decorativo, globos, pastel, sparkles. Desde $300.</p>
+          <span class="svc-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ver paquetes PDF
+          </span>
+        </a>
+
+        <!-- Maternidad -->
+        <a class="svc-card reveal" href="pdfs/gestacion.pdf" target="_blank" rel="noopener">
+          <div class="svc-icon">🤍</div>
+          <div class="svc-name">Maternidad</div>
+          <p class="svc-desc">Estudio o exterior, fantasía artística. Desde $300.</p>
+          <span class="svc-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ver paquetes PDF
+          </span>
+        </a>
+
+        <!-- Bodas -->
+        <a class="svc-card reveal" href="pdfs/bodas.pdf" target="_blank" rel="noopener">
+          <div class="svc-icon">💍</div>
+          <div class="svc-name">Bodas</div>
+          <p class="svc-desc">Propuesta, Save the Date, Civil, Full Experiencia. Desde $300.</p>
+          <span class="svc-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ver paquetes PDF
+          </span>
+        </a>
+
+        <!-- Kids -->
+        <a class="svc-card reveal" href="pdfs/kids.pdf" target="_blank" rel="noopener">
+          <div class="svc-icon">🌸</div>
+          <div class="svc-name">Kids</div>
+          <p class="svc-desc">Bebés y niños. Set unicolor, decorativo o fantasía artística. Desde $300.</p>
+          <span class="svc-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ver paquetes PDF
+          </span>
+        </a>
+
+        <!-- XV Años -->
+        <a class="svc-card reveal" href="pdfs/xv-anos.pdf" target="_blank" rel="noopener">
+          <div class="svc-icon">✨</div>
+          <div class="svc-name">XV Años</div>
+          <p class="svc-desc">Paquete pequeño, A tu Medida o Full Experiencia. Desde $400.</p>
+          <span class="svc-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ver paquetes PDF
+          </span>
+        </a>
+
+        <!-- Familia -->
+        <a class="svc-card reveal" href="pdfs/familia.pdf" target="_blank" rel="noopener">
+          <div class="svc-icon">👨‍👩‍👧</div>
+          <div class="svc-name">Familia</div>
+          <p class="svc-desc">Sesiones para toda la familia, estudio o exterior.</p>
+          <span class="svc-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ver paquetes PDF
+          </span>
+        </a>
+
+        <!-- Retrato / Modelo -->
+        <a class="svc-card reveal" href="pdfs/retrato.pdf" target="_blank" rel="noopener">
+          <div class="svc-icon">📸</div>
+          <div class="svc-name">Retrato &amp; Modelo</div>
+          <p class="svc-desc">Sesiones de retrato profesional y portafolio de modelo.</p>
+          <span class="svc-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ver paquetes PDF
+          </span>
+        </a>
+
+        <!-- Revelación de sexo -->
+        <a class="svc-card svc-card--new reveal" href="pdfs/revelacion-sexo.pdf" target="_blank" rel="noopener">
+          <span class="svc-badge">Nuevo</span>
+          <div class="svc-icon">🩵🩷</div>
+          <div class="svc-name">Revelación de Sexo</div>
+          <p class="svc-desc">Captura el momento más emocionante del embarazo.</p>
+          <span class="svc-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ver paquetes PDF
+          </span>
+        </a>
+
+        <!-- Nuevo cliente -->
+        <a class="svc-card reveal" href="pdfs/nuevo-cliente.pdf" target="_blank" rel="noopener">
+          <div class="svc-icon">💜</div>
+          <div class="svc-name">Nuevo Cliente</div>
+          <p class="svc-desc">Toda la información para comenzar: proceso, pagos y preguntas frecuentes.</p>
+          <span class="svc-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ver información PDF
+          </span>
+        </a>
+
+      </div>
+
+      <!-- Nota WhatsApp -->
+      <div class="paq-note">
+        <p>¿Tienes preguntas? Escríbeme directamente y con gusto te ayudo a elegir.</p>
+        <a class="paq-note__wa" href="https://wa.me/16787659231?text=Hola!%20Vi%20los%20paquetes%20y%20tengo%20una%20pregunta%20%F0%9F%A4%8D" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribir por WhatsApp
+        </a>
       </div>
     </section>
-
-    <!-- CAT NAV -->
-    <nav class="cat-nav" aria-label="Categorías de paquetes">
-      <div class="container cat-nav__inner">
-        <a href="#cumpleanos" class="cat-nav__link">🎂 Cumpleaños</a>
-        <a href="#maternidad" class="cat-nav__link">🤍 Maternidad</a>
-        <a href="#pareja" class="cat-nav__link">💑 Pareja</a>
-        <a href="#bodas" class="cat-nav__link">💍 Bodas</a>
-        <a href="#kids" class="cat-nav__link">🌸 Kids</a>
-        <a href="#xv" class="cat-nav__link">✨ XV Años</a>
-      </div>
-    </nav>
-
-
-    <!-- ══════════════════════════════════════════════════════
-         CUMPLEAÑOS
-    ══════════════════════════════════════════════════════ -->
-    <section class="cat-section" id="cumpleanos">
-
-      <div class="cat-imm reveal">
-        <div class="cat-imm__bg" style="background-image:url('imagenes/pdf/cumple_hero.jpeg');background-position:center 20%"></div>
-        <div class="cat-imm__text">
-          <span class="cat-imm__label">fotografía</span>
-          <h2 class="cat-imm__title">cumpleaños</h2>
-          <p class="cat-imm__desc">Cumplir años no es solo una fecha. Es historia, evolución, amor propio y fuerza. Quiero que al verte en tus fotos te inspires, te admires y te recuerdes con amor.</p>
-        </div>
-      </div>
-
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal1.jpeg" alt="Sesión cumpleaños" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal2.jpeg" alt="Sesión cumpleaños" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal3.jpeg" alt="Sesión cumpleaños" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal4.jpeg" alt="Sesión cumpleaños" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal5.jpeg" alt="Sesión cumpleaños" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal6.jpeg" alt="Sesión cumpleaños" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/cumple_premium.jpeg" alt="Sesión cumpleaños" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/cumple_estandar.jpeg" alt="Sesión cumpleaños" loading="lazy">
-          <!-- duplicado para bucle continuo -->
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal1.jpeg" alt="Sesión cumpleaños" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal2.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal3.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal4.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal5.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/cumple_gal6.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/cumple_premium.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/cumple_estandar.jpeg" alt="" aria-hidden="true">
-        </div>
-      </div>
-
-      <div class="pkg-grid">
-
-        <!-- Estándar -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/cumple_estandar.jpeg" alt="Paquete Estándar Cumpleaños" loading="lazy">
-            <div class="pkg-photo__price">$300</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Estándar</span>
-            <div class="pkg-name">Set Cumpleaños</div>
-            <div class="pkg-note">Set plano unicolor con globos y accesorios</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Set plano unicolor con globos, champán, número de cumpleaños y sparkles fireworks</li>
-              <li>Pastel con diseños de catálogo incluido</li>
-              <li>1 hora de sesión · hasta 2 cambios de outfit</li>
-              <li>Dirección de poses y acompañamiento durante toda la sesión</li>
-              <li>9 fotografías finales editadas en HD, escogidas por el cliente</li>
-              <li>Link digital para descarga desde cualquier dispositivo</li>
-            </ul>
-            <p class="pkg-deposit">Depósito de $50 USD para garantizar tu fecha</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20Est%C3%A1ndar%20de%20Cumplea%C3%B1os%20(%24300).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">
-              Reservar este paquete
-            </a>
-          </div>
-        </div>
-
-        <!-- Premium -->
-        <div class="pkg-card pkg-card--highlight reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/cumple_premium.jpeg" alt="Paquete Premium Cumpleaños" loading="lazy">
-            <div class="pkg-photo__price">$520</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Premium</span>
-            <div class="pkg-name">Set Decorativo</div>
-            <div class="pkg-note">Con maquillaje profesional · sin maquillaje $400</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Set decorativo con diseño de globos, champán, número de cumpleaños, sparkles fireworks</li>
-              <li>Pastel de diseño elegido por el cliente</li>
-              <li>1 hora de sesión · hasta 3 cambios de outfit</li>
-              <li>Maquillaje profesional incluido</li>
-              <li>Dirección de poses y acompañamiento durante toda la sesión</li>
-              <li>13 fotografías finales editadas en HD, escogidas por el cliente</li>
-              <li>Link digital para descarga</li>
-              <li>Regalo: videoclip o reel cinético</li>
-            </ul>
-            <p class="pkg-deposit">Depósito de $50 USD o 25% del valor para reservar</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20Premium%20de%20Cumplea%C3%B1os%20(%24520).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">
-              Reservar este paquete
-            </a>
-          </div>
-        </div>
-
-        <!-- Foto adicional -->
-        <div class="pkg-card pkg-card--custom reveal">
-          <div class="custom-icon">📸</div>
-          <div class="pkg-name">Foto adicional</div>
-          <p>Agrega imágenes extra a cualquier paquete, editadas en HD y alta resolución.</p>
-          <div style="font-family:var(--font-display);font-size:2.2rem;color:var(--text)">$20 <span style="font-size:1rem;font-family:var(--font-body)">/ imagen</span></div>
-          <a class="pkg-btn pkg-btn--outline" href="https://wa.me/16787659231?text=Hola!%20Quisiera%20agregar%20fotos%20adicionales%20a%20mi%20sesi%C3%B3n%20%F0%9F%A4%8D" target="_blank" rel="noopener" style="width:100%;margin-top:0">Consultar</a>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ══════════════════════════════════════════════════════
-         MATERNIDAD
-    ══════════════════════════════════════════════════════ -->
-    <section class="cat-section" id="maternidad">
-
-      <div class="cat-imm reveal">
-        <div class="cat-imm__bg" style="background-image:url('imagenes/pdf/mat_hero.jpeg');background-position:center 20%"></div>
-        <div class="cat-imm__text">
-          <span class="cat-imm__label">fotografía</span>
-          <h2 class="cat-imm__title">maternidad</h2>
-          <p class="cat-imm__desc">Estás creando vida… y eso merece ser recordado para siempre. Capturo cada instante con la delicadeza y el amor que merece este momento único.</p>
-        </div>
-      </div>
-
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal1.jpeg" alt="Sesión maternidad" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal2.jpeg" alt="Sesión maternidad" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal3.jpeg" alt="Sesión maternidad" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal4.jpeg" alt="Sesión maternidad" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal5.jpeg" alt="Sesión maternidad" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal6.jpeg" alt="Sesión maternidad" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/mat_premium.jpeg" alt="Sesión maternidad" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/mat_exterior.jpeg" alt="Sesión maternidad" loading="lazy">
-          <!-- duplicado para bucle continuo -->
-          <img class="photo-circle" src="imagenes/pdf/mat_gal1.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal2.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal3.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal4.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal5.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/mat_gal6.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/mat_premium.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/mat_exterior.jpeg" alt="" aria-hidden="true">
-        </div>
-      </div>
-
-      <div class="pkg-grid">
-
-        <!-- Estándar -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/mat_estandar.jpeg" alt="Maternidad Estándar" loading="lazy">
-            <div class="pkg-photo__price">$300</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Estándar</span>
-            <div class="pkg-name">Set Maternidad</div>
-            <div class="pkg-note">Minimalista, telones, efectos de luces</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Set plano unicolor estilos minimalistas, set decorativo básico con diseño de telones, efectos de luces u otros escenarios básicos</li>
-              <li>1 hora de sesión · hasta 2 cambios de outfit</li>
-              <li>Dirección de poses y acompañamiento durante toda la sesión</li>
-              <li>9 fotografías finales editadas en HD, escogidas por el cliente</li>
-              <li>Link digital para descarga</li>
-            </ul>
-            <p class="pkg-deposit">Depósito de $50 USD para garantizar tu fecha</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20Est%C3%A1ndar%20de%20Maternidad%20(%24300).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-        <!-- Exterior -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/mat_exterior.jpeg" alt="Maternidad Exterior" loading="lazy">
-            <div class="pkg-photo__price">$400</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Exterior</span>
-            <div class="pkg-name">Set Exterior</div>
-            <div class="pkg-note">Parque, jardín o lugar especial en Atlanta</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Locación a elección — parque, jardín o sitio especial en Atlanta y alrededores</li>
-              <li>1 hora de sesión en la locación seleccionada</li>
-              <li>Dirección de poses y acompañamiento durante toda la sesión</li>
-              <li>15 fotografías finales editadas en HD, escogidas por el cliente</li>
-              <li>Link digital para descarga</li>
-            </ul>
-            <p class="pkg-deposit">Depósito de $50 USD para garantizar tu fecha</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20Exterior%20de%20Maternidad%20(%24400).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-        <!-- Premium -->
-        <div class="pkg-card pkg-card--highlight reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/mat_premium.jpeg" alt="Maternidad Premium" loading="lazy">
-            <div class="pkg-photo__price">$530</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Premium</span>
-            <div class="pkg-name">Set Decorativo</div>
-            <div class="pkg-note">Con maquillaje profesional · sin maquillaje $400</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Set decorativo básico con diseño personalizado</li>
-              <li>1 vestuario de maternidad del inventario del estudio (opcional)</li>
-              <li>1 hora de sesión · hasta 3 cambios de outfit</li>
-              <li>Maquillaje profesional incluido</li>
-              <li>Dirección de poses y acompañamiento durante toda la sesión</li>
-              <li>13 fotografías finales editadas en HD, escogidas por el cliente</li>
-              <li>Link digital para descarga</li>
-              <li>Regalo: videoclip o reel cinético</li>
-            </ul>
-            <p class="pkg-deposit">Depósito de $50 USD o 25% del valor para reservar</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20Premium%20de%20Maternidad%20(%24530).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-        <!-- Premium Plus -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/mat_hero.jpeg" alt="Maternidad Premium Plus" loading="lazy" style="object-position:center 30%">
-            <div class="pkg-photo__price">Desde $700</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Premium Plus · Nuevo 2026</span>
-            <div class="pkg-name">Fantasía Artística</div>
-            <div class="pkg-note">Concepto creativo con temática personalizada</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Construcción de concepto creativo y set artístico de fantasía con temática personalizada</li>
-              <li>1h 30min de sesión · hasta 3 cambios de outfit</li>
-              <li>Diseño y elaboración de vestuario acorde al concepto (opcional)</li>
-              <li>Maquillaje profesional artístico</li>
-              <li>Dirección de poses y acompañamiento durante toda la sesión</li>
-              <li>15 fotografías finales editadas de manera artística y creativa</li>
-              <li>Regalo: videoclip o reel cinético</li>
-            </ul>
-            <p class="pkg-deposit">30% de depósito · precio según concepto</p>
-            <a class="pkg-btn pkg-btn--outline" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20Premium%20Plus%20de%20Maternidad%20(desde%20%24700).%20%C2%BFPodemos%20hablar%20del%20concepto%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Cotizar paquete</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ══════════════════════════════════════════════════════
-         PAREJA
-    ══════════════════════════════════════════════════════ -->
-    <section class="cat-section" id="pareja">
-
-      <div class="cat-imm reveal">
-        <div class="cat-imm__bg" style="background-image:url('imagenes/pdf/pareja_hero.jpeg');background-position:center 25%"></div>
-        <div class="cat-imm__text">
-          <span class="cat-imm__label">fotografía</span>
-          <h2 class="cat-imm__title">pareja</h2>
-          <p class="cat-imm__desc">Congela ese amor en imágenes que van a querer ver una y otra vez. Capturamos gestos reales, miradas cómplices y la esencia de cada vínculo.</p>
-        </div>
-      </div>
-
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <img class="photo-circle" src="imagenes/pdf/pareja_gal1.jpeg" alt="Sesión pareja" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/pareja_gal2.jpeg" alt="Sesión pareja" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/pareja_estudio.jpeg" alt="Sesión pareja estudio" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/pareja_gal3.jpeg" alt="Sesión pareja" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/pareja_gal4.jpeg" alt="Sesión pareja" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/pareja_exterior.jpeg" alt="Sesión pareja exterior" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/pareja_hero.jpeg" alt="Sesión pareja" loading="lazy">
-          <!-- duplicado para bucle continuo -->
-          <img class="photo-circle" src="imagenes/pdf/pareja_gal1.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/pareja_gal2.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/pareja_estudio.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/pareja_gal3.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/pareja_gal4.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/pareja_exterior.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/pareja_hero.jpeg" alt="" aria-hidden="true">
-        </div>
-      </div>
-
-      <div class="pkg-grid">
-
-        <!-- Estudio -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/pareja_estudio.jpeg" alt="Pareja en Estudio" loading="lazy">
-            <div class="pkg-photo__price">$300</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Estudio</span>
-            <div class="pkg-name">Sesión en Estudio</div>
-            <div class="pkg-note">Iluminación profesional · Lawrenceville, GA</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>1 hora de sesión con iluminación profesional en estudio</li>
-              <li>Acompañamiento y dirección de poses para coordinar confianza ante la cámara</li>
-              <li>9 fotografías finales profesionales en HD previamente editadas</li>
-              <li>Link digital para descarga desde cualquier dispositivo</li>
-              <li>Regalo: videoclip o reel cinematográfico</li>
-            </ul>
-            <p class="pkg-deposit">Depósito de $50 USD para garantizar tu fecha</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20de%20Pareja%20en%20Estudio%20(%24300).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-        <!-- Exterior -->
-        <div class="pkg-card pkg-card--highlight reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/pareja_exterior.jpeg" alt="Pareja Exterior" loading="lazy">
-            <div class="pkg-photo__price">$400</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Exterior</span>
-            <div class="pkg-name">Sesión al Aire Libre</div>
-            <div class="pkg-note">Parque, jardín o lugar especial en Atlanta</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Locación a elección — parque, jardín o lugar especial en Atlanta y alrededores</li>
-              <li>1 hora de sesión en la locación seleccionada</li>
-              <li>Dirección de poses y acompañamiento durante toda la sesión</li>
-              <li>12 fotografías finales profesionales en HD editadas</li>
-              <li>Link digital para descarga</li>
-              <li>Regalo: videoclip o reel cinético</li>
-            </ul>
-            <p class="pkg-deposit">Depósito de $50 USD para garantizar tu fecha</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20de%20Pareja%20Exterior%20(%24400).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ══════════════════════════════════════════════════════
-         BODAS
-    ══════════════════════════════════════════════════════ -->
-    <section class="cat-section" id="bodas">
-
-      <div class="cat-imm reveal">
-        <div class="cat-imm__bg" style="background-image:url('imagenes/pdf/boda_hero.jpeg');background-position:center 20%"></div>
-        <div class="cat-imm__text">
-          <span class="cat-imm__label">fotografía</span>
-          <h2 class="cat-imm__title">bodas</h2>
-          <p class="cat-imm__desc">El día pasa en un suspiro… pero las fotos lo hacen eterno. Convierto los instantes espontáneos, íntimos y profundos de tu boda en imágenes que duran toda la vida.</p>
-        </div>
-      </div>
-
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <img class="photo-circle" src="imagenes/pdf/boda_gal1.jpeg" alt="Sesión bodas" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/boda_gal2.jpeg" alt="Sesión bodas" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/boda_propuesta.jpeg" alt="Propuesta de matrimonio" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/boda_civil.jpeg" alt="Boda civil" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/boda_gal3.jpeg" alt="Sesión bodas" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/boda_gal4.jpeg" alt="Sesión bodas" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/boda_full.jpeg" alt="Boda full" loading="lazy">
-          <!-- duplicado para bucle continuo -->
-          <img class="photo-circle" src="imagenes/pdf/boda_gal1.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/boda_gal2.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/boda_propuesta.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/boda_civil.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/boda_gal3.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/boda_gal4.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/boda_full.jpeg" alt="" aria-hidden="true">
-        </div>
-      </div>
-
-      <div class="pkg-grid">
-
-        <!-- Propuesta -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/boda_propuesta.jpeg" alt="Propuesta de matrimonio" loading="lazy">
-            <div class="pkg-photo__price">$400</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Propuesta</span>
-            <div class="pkg-name">Captura el Sí</div>
-            <div class="pkg-note">Locación de preferencia en Atlanta y alrededores</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Traslado al lugar del compromiso — o te ayudamos a elegir el lugar ideal en Atlanta</li>
-              <li>1 hora de sesión de fotos</li>
-              <li>Fotos espontáneas y naturales mientras viven el momento + dirección de poses</li>
-              <li>15 fotografías finales profesionales en HD editadas</li>
-              <li>Link digital para descarga</li>
-            </ul>
-            <p class="pkg-deposit">30% de depósito para garantizar tu fecha</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20de%20Propuesta%20(%24400).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-        <!-- Save the Date -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/boda_gal1.jpeg" alt="Save the Date" loading="lazy">
-            <div class="pkg-photo__price">$300</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Save the Date</span>
-            <div class="pkg-name">Anuncio de Boda</div>
-            <div class="pkg-note">$400 si se contrata sola · $300 al contratar paquete de boda</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>1 hora de sesión de fotos</li>
-              <li>Acompañamiento profesional para coordinar poses y confianza ante la cámara</li>
-              <li>Diseño de periódico para Save the Date (opcional)</li>
-              <li>9 fotografías finales profesionales en HD previamente editadas</li>
-              <li>Link digital para descarga</li>
-            </ul>
-            <p class="pkg-deposit">30% de depósito para garantizar tu fecha</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20Save%20the%20Date%20de%20Boda%20(%24300).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-        <!-- Civil -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/boda_civil.jpeg" alt="Boda Civil Íntima" loading="lazy">
-            <div class="pkg-photo__price">$400</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Civil / Ceremonia corta</span>
-            <div class="pkg-name">Boda Civil Íntima</div>
-            <div class="pkg-note">Sesión exterior en corte, parque o lugar preferido</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Sesión exterior en lugar de preferencia (corte o parque)</li>
-              <li>Cobertura de 1 hora</li>
-              <li>Fotografías espontáneas y dirigidas — fotos en pareja y en familia</li>
-              <li>Acompañamiento profesional para coordinar poses</li>
-              <li>15 fotografías finales en HD previamente editadas (edición de piel, iluminación, color)</li>
-              <li>Álbum digital para descarga desde cualquier dispositivo</li>
-            </ul>
-            <p class="pkg-deposit">30% de depósito para garantizar tu fecha</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20de%20Boda%20Civil%20(%24400).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-        <!-- Full Experiencia -->
-        <div class="pkg-card pkg-card--highlight reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/boda_full.jpeg" alt="Boda Full Experiencia" loading="lazy">
-            <div class="pkg-photo__price">$4,300</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Full Experiencia</span>
-            <div class="pkg-name">Cobertura Completa</div>
-            <div class="pkg-note">11 horas · 3 locaciones · de la preparación hasta la fiesta</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>11 horas continuas en hasta 3 locaciones (preparación, sesión fotográfica, ceremonia y fiesta)</li>
-              <li>90 fotografías finales editadas en HD + entrega en crudo de todas las tomadas</li>
-              <li>Video cinematográfico de 2 a 5 minutos con los momentos más emotivos</li>
-              <li>Sesión pre-boda incluida: 1 hora, 10 imágenes (exteriores o estudio)</li>
-              <li>Álbum impreso hasta 25 fotografías — pasta dura, acabado elegante</li>
-              <li>Entrega: 25 a 30 días hábiles · Depósito: 40% al reservar</li>
-            </ul>
-            <p class="pkg-deposit">40% de depósito · saldo restante un día antes de la boda</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Quisiera%20cotizar%20el%20paquete%20Full%20Experiencia%20de%20Boda%20(%244%2C300).%20%C2%BFPodemos%20hablar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Cotizar cobertura</a>
-          </div>
-        </div>
-
-        <!-- A tu medida -->
-        <div class="pkg-card pkg-card--custom reveal">
-          <div class="custom-icon">💍</div>
-          <div class="pkg-name">A tu Medida</div>
-          <p>3 a 10 horas · 15 a 90 fotos · foto + video opcional · hasta 3 locaciones · servicio de impresión disponible</p>
-          <a class="pkg-btn pkg-btn--outline" href="https://wa.me/16787659231?text=Hola!%20Quisiera%20un%20paquete%20personalizado%20para%20mi%20boda.%20%C2%BFPodemos%20hablar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener" style="width:100%;margin-top:0">Armar mi paquete</a>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ══════════════════════════════════════════════════════
-         KIDS
-    ══════════════════════════════════════════════════════ -->
-    <section class="cat-section" id="kids">
-
-      <div class="cat-imm reveal">
-        <div class="cat-imm__bg" style="background-image:url('imagenes/pdf/kids_hero.jpeg');background-position:center 20%"></div>
-        <div class="cat-imm__text">
-          <span class="cat-imm__label">fotografía</span>
-          <h2 class="cat-imm__title">kids</h2>
-          <p class="cat-imm__desc">Bebés y niños en sesiones únicas, con toda la paciencia y ternura que merecen. El bebé siempre cómodo y feliz — capturamos cada expresión y detalle especial.</p>
-        </div>
-      </div>
-
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <img class="photo-circle" src="imagenes/pdf/kids_hero.jpeg" alt="Sesión kids" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/kids_gal1.jpeg" alt="Sesión kids" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/kids_premiumplus.jpeg" alt="Kids fantasía" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/kids_gal2.jpeg" alt="Sesión kids" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/kids_premium.jpeg" alt="Kids premium" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/kids_gal3.jpeg" alt="Sesión kids" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/kids_basico.jpeg" alt="Kids básico" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/kids_gal4.jpeg" alt="Sesión kids" loading="lazy">
-          <!-- duplicado para bucle continuo -->
-          <img class="photo-circle" src="imagenes/pdf/kids_hero.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/kids_gal1.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/kids_premiumplus.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/kids_gal2.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/kids_premium.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/kids_gal3.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/kids_basico.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/kids_gal4.jpeg" alt="" aria-hidden="true">
-        </div>
-      </div>
-
-      <div class="pkg-grid">
-
-        <!-- Básico -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/kids_basico.jpeg" alt="Kids Básico" loading="lazy">
-            <div class="pkg-photo__price">$300</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Básico</span>
-            <div class="pkg-name">Set Unicolor</div>
-            <div class="pkg-note">Set plano unicolor · globo número (opcional)</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Set plano unicolor</li>
-              <li>Globo número de cumpleaños (opcional)</li>
-              <li>1 hora de sesión fotográfica</li>
-              <li>Acompañamiento durante toda la sesión, cuidando que el bebé esté siempre cómodo y feliz</li>
-              <li>8 fotografías finales editadas artísticamente</li>
-              <li>Regalo: videoclip o reel cinematográfico</li>
-            </ul>
-            <p class="pkg-deposit">Depósito de $50 USD para garantizar tu fecha</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20B%C3%A1sico%20de%20Kids%20(%24300).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-        <!-- Premium -->
-        <div class="pkg-card pkg-card--highlight reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/kids_premium.jpeg" alt="Kids Premium" loading="lazy">
-            <div class="pkg-photo__price">$500</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Premium</span>
-            <div class="pkg-name">Set Decorativo</div>
-            <div class="pkg-note">Globos + número en madera o luz + maqueta de pastel</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Set decorativo de globos del color de preferencia</li>
-              <li>Número de cumpleaños en madera o luz</li>
-              <li>Maqueta de pastel incluida</li>
-              <li>1 hora de sesión fotográfica</li>
-              <li>Acompañamiento completo, cuidando que el bebé esté siempre cómodo y feliz</li>
-              <li>12 fotografías finales editadas artística y creativamente</li>
-              <li>Regalo: videoclip o reel cinematográfico</li>
-            </ul>
-            <p class="pkg-deposit">Depósito de $50 USD o 25% del valor para reservar</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20Premium%20de%20Kids%20(%24500).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-        <!-- Premium Plus -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/kids_premiumplus.jpeg" alt="Kids Premium Plus" loading="lazy">
-            <div class="pkg-photo__price">Desde $700</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Premium Plus</span>
-            <div class="pkg-name">Fantasía Artística</div>
-            <div class="pkg-note">Concepto creativo con temática personalizada</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Construcción de concepto creativo y set artístico con temática personalizada, diseñada especialmente para tu bebé</li>
-              <li>Maqueta de pastel creativa incluida</li>
-              <li>1 hora y 30 minutos de sesión fotográfica</li>
-              <li>Acompañamiento completo, cuidando que el bebé esté siempre cómodo y feliz</li>
-              <li>12 fotografías finales editadas artística y creativamente, capturando cada expresión y detalle especial</li>
-              <li>Regalo: videoclip o reel cinematográfico</li>
-            </ul>
-            <p class="pkg-deposit">30% de depósito · precio según concepto</p>
-            <a class="pkg-btn pkg-btn--outline" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20Premium%20Plus%20de%20Kids%20(desde%20%24700).%20%C2%BFPodemos%20hablar%20del%20concepto%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Cotizar paquete</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ══════════════════════════════════════════════════════
-         XV AÑOS
-    ══════════════════════════════════════════════════════ -->
-    <section class="cat-section" id="xv">
-
-      <div class="cat-imm reveal">
-        <div class="cat-imm__bg" style="background-image:url('imagenes/pdf/xv_hero.jpeg');background-position:center 25%"></div>
-        <div class="cat-imm__text">
-          <span class="cat-imm__label">fotografía</span>
-          <h2 class="cat-imm__title">XV años</h2>
-          <p class="cat-imm__desc">Cumplir XV años no es solo una fiesta. Es el inicio de una nueva etapa, de sueños que nacen y alas que comienzan a abrirse.</p>
-        </div>
-      </div>
-
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <img class="photo-circle" src="imagenes/pdf/xv_hero.jpeg" alt="Sesión XV años" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/xv_gal1.jpeg" alt="Sesión XV años" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/xv_pequeno.jpeg" alt="XV paquete pequeño" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/xv_gal2.jpeg" alt="Sesión XV años" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/xv_full.jpeg" alt="XV full experiencia" loading="lazy">
-          <img class="photo-circle" src="imagenes/pdf/xv_gal3.jpeg" alt="Sesión XV años" loading="lazy">
-          <!-- duplicado para bucle continuo -->
-          <img class="photo-circle" src="imagenes/pdf/xv_hero.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/xv_gal1.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/xv_pequeno.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/xv_gal2.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/xv_full.jpeg" alt="" aria-hidden="true">
-          <img class="photo-circle" src="imagenes/pdf/xv_gal3.jpeg" alt="" aria-hidden="true">
-        </div>
-      </div>
-
-      <div class="pkg-grid">
-
-        <!-- Paquete Pequeño -->
-        <div class="pkg-card reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/xv_pequeno.jpeg" alt="XV Paquete Pequeño" loading="lazy">
-            <div class="pkg-photo__price">$400</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Paquete Pequeño</span>
-            <div class="pkg-name">Sesión Exterior</div>
-            <div class="pkg-note">Ideal para iglesia o parque</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>Sesión exterior en lugar de preferencia (iglesia o parque)</li>
-              <li>Cobertura de 1 hora</li>
-              <li>Fotografías espontáneas y dirigidas — fotos en pareja y en familia</li>
-              <li>Acompañamiento profesional para coordinar poses y confianza</li>
-              <li>15 fotografías finales en HD previamente editadas (piel, iluminación, color)</li>
-              <li>Álbum digital para descarga desde cualquier dispositivo</li>
-            </ul>
-            <p class="pkg-deposit">30% de depósito para garantizar tu fecha</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Me%20interesa%20el%20Paquete%20Peque%C3%B1o%20de%20XV%20A%C3%B1os%20(%24400).%20%C2%BFPuedo%20reservar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Reservar este paquete</a>
-          </div>
-        </div>
-
-        <!-- Full Experiencia -->
-        <div class="pkg-card pkg-card--highlight reveal">
-          <div class="pkg-photo">
-            <img src="imagenes/pdf/xv_full.jpeg" alt="XV Full Experiencia" loading="lazy">
-            <div class="pkg-photo__price">$4,500</div>
-          </div>
-          <div class="pkg-body">
-            <span class="pkg-tier">Full Experiencia</span>
-            <div class="pkg-name">Cobertura Completa</div>
-            <div class="pkg-note">10 horas · 3 locaciones · de la preparación hasta la fiesta</div>
-            <hr class="pkg-divider">
-            <ul class="pkg-includes">
-              <li>10 horas continuas en hasta 3 locaciones (preparación, sesión fotográfica, ceremonia y fiesta)</li>
-              <li>90 fotografías finales editadas en HD + entrega en crudo de todas las tomadas</li>
-              <li>Video cinematográfico de 2 a 5 minutos con los momentos más emotivos</li>
-              <li>Sesión pre-cumpleaños incluida: 1 hora, 10 imágenes, incluye decoración</li>
-              <li>Álbum impreso hasta 25 fotografías — pasta dura, acabado elegante</li>
-              <li>Entrega: 4 a 25 días según el paquete · Depósito: 40% al reservar</li>
-            </ul>
-            <p class="pkg-deposit">40% de depósito · saldo restante un día antes del evento</p>
-            <a class="pkg-btn" href="https://wa.me/16787659231?text=Hola!%20Quisiera%20cotizar%20el%20paquete%20Full%20Experiencia%20de%20XV%20A%C3%B1os%20(%244%2C500).%20%C2%BFPodemos%20hablar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener">Cotizar cobertura</a>
-          </div>
-        </div>
-
-        <!-- A tu medida -->
-        <div class="pkg-card pkg-card--custom reveal">
-          <div class="custom-icon">✨</div>
-          <div class="pkg-name">A tu Medida</div>
-          <p>3 a 10 horas · 15 a 90 fotos · foto + video opcional · hasta 3 locaciones · servicio de impresión disponible</p>
-          <a class="pkg-btn pkg-btn--outline" href="https://wa.me/16787659231?text=Hola!%20Quisiera%20un%20paquete%20personalizado%20para%20mis%20XV%20A%C3%B1os.%20%C2%BFPodemos%20hablar%3F%20%F0%9F%A4%8D" target="_blank" rel="noopener" style="width:100%;margin-top:0">Armar mi paquete</a>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ══════════════════════════════════════════════════════
-         CÓMO RESERVAR
-    ══════════════════════════════════════════════════════ -->
-    <section class="deposito-band" id="como-reservar">
-      <div class="container">
-        <p class="deposito-band__label reveal">Reserva tu fecha</p>
-        <h2 class="deposito-band__title reveal">¿Cómo es el proceso?</h2>
-        <div class="deposito-steps">
-          <div class="deposito-step reveal">
-            <div class="deposito-step__num">1</div>
-            <h4>Planificación</h4>
-            <p>Conversamos sobre el estilo, vestuario, locación y todos los detalles. Elegimos juntos el paquete ideal.</p>
-          </div>
-          <div class="deposito-step reveal">
-            <div class="deposito-step__num">2</div>
-            <h4>Reserva con depósito</h4>
-            <p>$50 USD (o 25–40% según el paquete) por Zelle. Luisa confirma la fecha y te envía el contrato digital al correo.</p>
-          </div>
-          <div class="deposito-step reveal">
-            <div class="deposito-step__num">3</div>
-            <h4>Día de la sesión</h4>
-            <p>Te acompañamos en todo momento con poses y confianza ante la cámara. El saldo restante se paga al finalizar.</p>
-          </div>
-          <div class="deposito-step reveal">
-            <div class="deposito-step__num">4</div>
-            <h4>Tus fotos listas</h4>
-            <p>Recibes una galería con marca de agua para elegir tus favoritas. Editadas en HD, listas en máximo 4 días hábiles.</p>
-          </div>
-        </div>
-        <div class="zelle-badge reveal">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-          <span>Zelle: <strong>elvimemories@gmail.com</strong></span>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <!-- FOOTER -->
@@ -1307,7 +358,7 @@
         <p>Fotografía profesional con alma. Capturando los momentos que definen tu historia en Lawrenceville, Georgia.</p>
         <div class="footer__socials">
           <a href="https://www.instagram.com/elvimemoriesfotografia/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
           </a>
           <a href="https://www.facebook.com/elvimemories" target="_blank" rel="noopener" aria-label="Facebook">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
@@ -1318,24 +369,23 @@
         </div>
       </div>
       <div class="footer__col">
+        <h4 class="footer__heading">Sesiones</h4>
+        <nav>
+          <a href="pdfs/cumpleanos.pdf" target="_blank">Cumpleaños</a>
+          <a href="pdfs/gestacion.pdf" target="_blank">Maternidad</a>
+          <a href="pdfs/bodas.pdf" target="_blank">Bodas</a>
+          <a href="pdfs/kids.pdf" target="_blank">Kids</a>
+          <a href="pdfs/xv-anos.pdf" target="_blank">XV Años</a>
+          <a href="pdfs/familia.pdf" target="_blank">Familia</a>
+        </nav>
+      </div>
+      <div class="footer__col">
         <h4 class="footer__heading">Navegación</h4>
         <nav>
           <a href="index.html#inicio">Inicio</a>
           <a href="index.html#portafolio">Portafolio</a>
           <a href="paquetes.html">Paquetes</a>
           <a href="index.html#reserva">Reservar</a>
-          <a href="index.html#testimonios">Testimonios</a>
-        </nav>
-      </div>
-      <div class="footer__col">
-        <h4 class="footer__heading">Paquetes</h4>
-        <nav>
-          <a href="#cumpleanos">Cumpleaños</a>
-          <a href="#maternidad">Maternidad</a>
-          <a href="#pareja">Pareja</a>
-          <a href="#bodas">Bodas</a>
-          <a href="#kids">Kids</a>
-          <a href="#xv">XV Años</a>
         </nav>
       </div>
       <div class="footer__col">
@@ -1349,27 +399,10 @@
     <div class="footer__bottom">
       <div class="container footer__bottom-inner">
         <p>&copy; 2025 Elvi Memories. Todos los derechos reservados.</p>
-        <p>Diseñado con amor para preservar tus memorias.</p>
       </div>
     </div>
   </footer>
 
   <script src="script.js"></script>
-  <script>
-    window.addEventListener('load', () => {
-      document.getElementById('heroBg').classList.add('loaded');
-    });
-
-    const catSections = document.querySelectorAll('.cat-section[id]');
-    const catNavLinks = document.querySelectorAll('.cat-nav__link');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          catNavLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
-        }
-      });
-    }, { threshold: 0.2, rootMargin: '-100px 0px -40% 0px' });
-    catSections.forEach(s => obs.observe(s));
-  </script>
 </body>
 </html>
