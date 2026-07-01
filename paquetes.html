@@ -185,7 +185,7 @@
       position: fixed;
       inset: 0;
       z-index: 999;
-      background: rgba(8,4,14,0.92);
+      background: #2b2b2b;
       flex-direction: column;
     }
     .pdf-modal.open { display: flex; }
@@ -193,61 +193,63 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 20px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
+      padding: 12px 18px;
+      background: #1a1a1a;
       flex-shrink: 0;
+      gap: 12px;
     }
     .pdf-modal__title {
       font-family: var(--font-display);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 400;
+      color: white;
+    }
+    .pdf-modal__info {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      margin-left: 4px;
     }
     .pdf-modal__close {
-      background: none;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 16px;
-      font-family: var(--font-body);
-      font-size: 0.82rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 7px;
+      padding: 7px 16px;
+      font-size: 0.8rem;
       cursor: pointer;
-      color: var(--text);
-      transition: all 0.2s;
+      color: white;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .pdf-modal__close:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    .pdf-modal__frame {
+    .pdf-modal__close:hover { background: rgba(255,255,255,0.18); }
+
+    .pdf-modal__scroll {
       flex: 1;
-      width: 100%;
-      border: none;
-      background: #525659;
-    }
-    .pdf-modal__fallback {
-      display: none;
-      flex: 1;
-      align-items: center;
-      justify-content: center;
+      overflow-y: auto;
+      display: flex;
       flex-direction: column;
-      gap: 16px;
-      color: white;
-      text-align: center;
-      padding: 40px;
-    }
-    .pdf-modal__fallback p { opacity: 0.7; font-size: 0.9rem; }
-    .pdf-modal__dl {
-      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: white;
-      border-radius: 8px;
-      padding: 12px 24px;
-      text-decoration: none;
-      font-size: 0.86rem;
-      font-weight: 500;
+      padding: 20px 12px;
+      gap: 12px;
     }
+    .pdf-modal__scroll canvas {
+      max-width: 100%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      display: block;
+    }
+    .pdf-modal__loading {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .pdf-modal__loading span {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 12px;
+      animation: spin 1.2s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     @media (max-width: 600px) {
       .paq-page { padding: 100px 0 60px; }
@@ -473,59 +475,85 @@
     </div>
   </footer>
 
-  <!-- PDF MODAL -->
+  <!-- PDF MODAL con PDF.js (sin descarga, funciona en todos los dispositivos) -->
   <div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true">
     <div class="pdf-modal__bar">
-      <span class="pdf-modal__title" id="pdfModalTitle">Paquetes</span>
+      <div>
+        <span class="pdf-modal__title" id="pdfModalTitle">Paquetes</span>
+        <span class="pdf-modal__info" id="pdfModalInfo"></span>
+      </div>
       <button class="pdf-modal__close" onclick="closePdf()">✕ Cerrar</button>
     </div>
-    <iframe class="pdf-modal__frame" id="pdfFrame" title="Paquetes PDF" src=""></iframe>
-    <div class="pdf-modal__fallback" id="pdfFallback">
-      <p>Tu dispositivo no puede mostrar el PDF directamente.<br>Tócalo para abrirlo.</p>
-      <a class="pdf-modal__dl" id="pdfFallbackLink" href="#" target="_blank">Ver / Guardar PDF</a>
+    <div class="pdf-modal__scroll" id="pdfScroll">
+      <div class="pdf-modal__loading" id="pdfLoading">
+        <span>⟳</span><br>Cargando paquetes...
+      </div>
     </div>
   </div>
 
+  <!-- PDF.js desde CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="script.js"></script>
   <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    var currentPdfSrc = '';
+
     function openPdf(src, title) {
-      var modal = document.getElementById('pdfModal');
-      var frame = document.getElementById('pdfFrame');
-      var label = document.getElementById('pdfModalTitle');
-      var fallback = document.getElementById('pdfFallback');
-      var dlLink = document.getElementById('pdfFallbackLink');
+      var modal   = document.getElementById('pdfModal');
+      var scroll  = document.getElementById('pdfScroll');
+      var label   = document.getElementById('pdfModalTitle');
+      var info    = document.getElementById('pdfModalInfo');
+      var loading = document.getElementById('pdfLoading');
 
       label.textContent = title;
-      frame.src = src;
-      dlLink.href = src;
-      fallback.style.display = 'none';
-      frame.style.display = 'block';
+      info.textContent  = '';
+      scroll.innerHTML  = '';
+      scroll.appendChild(loading);
+      loading.style.display = 'block';
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
+      currentPdfSrc = src;
 
-      // Si el iframe no carga el PDF (mobile), mostrar fallback
-      frame.onload = function() {
-        try {
-          // Si el contenido es vacío o error, mostrar fallback
-          if (!frame.contentDocument || frame.contentDocument.body.innerHTML === '') {
-            frame.style.display = 'none';
-            fallback.style.display = 'flex';
-          }
-        } catch(e) {
-          // Cross-origin = probablemente cargó bien
-        }
-      };
+      // Añadir timestamp para evitar caché que bloquea
+      var url = src + '?v=' + Date.now();
+
+      pdfjsLib.getDocument(url).promise.then(function(pdf) {
+        loading.style.display = 'none';
+        info.textContent = '· ' + pdf.numPages + ' páginas';
+
+        var renderPage = function(num) {
+          pdf.getPage(num).then(function(page) {
+            var vw = Math.min(scroll.clientWidth - 24, 900);
+            var viewport = page.getViewport({ scale: vw / page.getViewport({ scale: 1 }).width });
+
+            var canvas = document.createElement('canvas');
+            canvas.width  = viewport.width;
+            canvas.height = viewport.height;
+            scroll.appendChild(canvas);
+
+            page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport });
+
+            if (num < pdf.numPages) renderPage(num + 1);
+          });
+        };
+        renderPage(1);
+
+      }).catch(function(err) {
+        loading.innerHTML = '⚠️ No se pudo cargar el PDF.<br><br>' +
+          '<a href="' + src + '" target="_blank" style="color:#8B5FA8">Abrir en otra ventana</a>';
+      });
     }
 
     function closePdf() {
-      var modal = document.getElementById('pdfModal');
-      var frame = document.getElementById('pdfFrame');
-      modal.classList.remove('open');
-      frame.src = '';
+      document.getElementById('pdfModal').classList.remove('open');
+      document.getElementById('pdfScroll').innerHTML =
+        '<div class="pdf-modal__loading" id="pdfLoading"><span>⟳</span><br>Cargando paquetes...</div>';
       document.body.style.overflow = '';
+      currentPdfSrc = '';
     }
 
-    // Cerrar con Escape
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closePdf();
     });
