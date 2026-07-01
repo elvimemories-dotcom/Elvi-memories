@@ -20,7 +20,6 @@
                   var(--bg);
     }
 
-
     /* ── HEADER ── */
     .paq-header {
       text-align: center;
@@ -69,7 +68,6 @@
       background: linear-gradient(to right, transparent, rgba(139,95,168,0.35), transparent);
     }
 
-
     /* ── GRID ── */
     .services-grid {
       display: grid;
@@ -94,7 +92,6 @@
       color: var(--text);
       position: relative;
       overflow: hidden;
-      /* entrance state */
       opacity: 0;
       transform: translateY(32px);
       transition:
@@ -113,7 +110,6 @@
       box-shadow: 0 24px 52px rgba(139,95,168,0.18);
     }
 
-    /* Cover image */
     .svc-cover {
       width: 100%;
       height: 192px;
@@ -133,7 +129,6 @@
       transform: scale(1.07);
     }
 
-    /* Content area */
     .svc-content {
       display: flex;
       flex-direction: column;
@@ -143,10 +138,7 @@
       width: 100%;
       box-sizing: border-box;
     }
-    .svc-icon {
-      font-size: 2rem;
-      line-height: 1;
-    }
+    .svc-icon { font-size: 2rem; line-height: 1; }
     .svc-name {
       font-family: var(--font-display);
       font-size: 1.65rem;
@@ -182,7 +174,6 @@
     }
     .svc-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 
-    /* Badge "Nuevo" */
     .svc-badge {
       position: absolute;
       top: 12px; right: 12px;
@@ -246,42 +237,48 @@
       box-shadow: 0 12px 30px rgba(37,211,102,0.38);
     }
 
-    /* ── PDF MODAL ── */
-    .pdf-modal {
+    /* ── PAQUETES MODAL ── */
+    .pkg-modal {
       display: none;
       position: fixed;
       inset: 0;
       z-index: 999;
-      background: #1e1e1e;
+      background: #141414;
       flex-direction: column;
       opacity: 0;
       transition: opacity 0.22s ease;
     }
-    .pdf-modal.open       { display: flex; }
-    .pdf-modal.open.anim  { opacity: 1; }
+    .pkg-modal.open      { display: flex; }
+    .pkg-modal.open.anim { opacity: 1; }
 
-    .pdf-modal__bar {
+    .pkg-modal__bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 13px 20px;
-      background: #111;
+      padding: 14px 20px;
+      background: #0e0e0e;
       flex-shrink: 0;
       gap: 12px;
       border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-    .pdf-modal__title {
+    .pkg-modal__heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pkg-modal__emoji { font-size: 1.3rem; }
+    .pkg-modal__title {
       font-family: var(--font-display);
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 400;
       color: white;
     }
-    .pdf-modal__info {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.38);
+    .pkg-modal__sub {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.36);
       margin-left: 4px;
     }
-    .pdf-modal__close {
+    .pkg-modal__close {
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.14);
       border-radius: 8px;
@@ -293,37 +290,215 @@
       flex-shrink: 0;
       transition: background 0.2s;
     }
-    .pdf-modal__close:hover { background: rgba(255,255,255,0.16); }
+    .pkg-modal__close:hover { background: rgba(255,255,255,0.16); }
 
-    .pdf-modal__scroll {
+    .pkg-modal__scroll {
       flex: 1;
       overflow-y: auto;
+      padding: 32px 20px 48px;
+    }
+
+    .pkg-modal__inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Intro quote */
+    .pkg-intro {
+      text-align: center;
+      margin-bottom: 36px;
+      padding: 0 8px;
+    }
+    .pkg-intro p {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Cards grid */
+    .pkg-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .pkg-card {
+      background: #1e1e1e;
+      border: 1.5px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      padding: 24px 22px 22px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 24px 16px;
       gap: 14px;
+      position: relative;
+      transition: border-color 0.25s;
     }
-    .pdf-modal__scroll canvas {
-      max-width: 100%;
-      box-shadow: 0 6px 32px rgba(0,0,0,0.65);
-      display: block;
-      border-radius: 4px;
+    .pkg-card.highlight {
+      border-color: rgba(139,95,168,0.7);
+      background: linear-gradient(145deg, #1e1828 0%, #1a1a1a 100%);
     }
-    .pdf-modal__loading {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.9rem;
-      padding: 80px 20px;
+    .pkg-card:hover { border-color: rgba(196,160,220,0.5); }
+    .pkg-card.highlight:hover { border-color: rgba(196,160,220,0.9); }
+
+    .pkg-card__badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(139,95,168,0.2);
+      color: rgba(196,160,220,0.9);
+      width: fit-content;
+    }
+    .pkg-card.highlight .pkg-card__badge {
+      background: rgba(139,95,168,0.45);
+      color: #d9b8f0;
+    }
+
+    .pkg-card__name {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: white;
+      line-height: 1.15;
+    }
+    .pkg-card__subtitle {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: -8px;
+    }
+
+    .pkg-card__price {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .pkg-card__price-main {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #c89ee0;
+      line-height: 1;
+    }
+    .pkg-card__price-alt {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.38);
+    }
+
+    .pkg-card__divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+    }
+
+    .pkg-card__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .pkg-card__list li {
+      display: flex;
+      gap: 9px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.45;
+    }
+    .pkg-card__list li::before {
+      content: '✓';
+      color: #a87dc8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pkg-card__list li.gift {
+      color: rgba(196,160,220,0.85);
+    }
+    .pkg-card__list li.gift::before {
+      content: '🎁';
+      font-size: 0.75rem;
+    }
+
+    .pkg-card__cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #25D366;
+      color: white;
+      border-radius: 10px;
+      padding: 11px 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: auto;
+      transition: background 0.22s;
+    }
+    .pkg-card__cta:hover { background: #1ebe5d; }
+
+    /* Proceso */
+    .pkg-proceso {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 24px 22px;
+      margin-bottom: 20px;
+    }
+    .pkg-proceso__title {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(196,160,220,0.6);
+      margin-bottom: 16px;
+    }
+    .pkg-proceso__steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .pkg-paso {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .pkg-paso__num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(139,95,168,0.3);
+      color: #c89ee0;
+      font-size: 0.65rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pkg-paso__text {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.4;
+    }
+
+    /* Pago */
+    .pkg-pago {
       text-align: center;
-      line-height: 2;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      padding: 0 8px;
     }
-    .pdf-modal__loading span {
-      font-size: 2.2rem;
-      margin-bottom: 14px;
-      animation: spin 1.2s linear infinite;
-      display: block;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .pkg-pago span { color: rgba(196,160,220,0.5); font-weight: 600; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
@@ -331,6 +506,9 @@
       .services-grid { grid-template-columns: 1fr; }
       .svc-content   { padding: 16px 22px 0; }
       .paq-note  { padding: 32px 24px; margin: 52px 16px 0; }
+      .pkg-modal__scroll { padding: 20px 12px 40px; }
+      .pkg-cards { grid-template-columns: 1fr; }
+      .pkg-proceso__steps { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -387,7 +565,7 @@
       <!-- Grid de servicios -->
       <div class="services-grid">
 
-        <a class="svc-card" href="#" onclick="openPdf('pdfs/cumpleanos.pdf','Cumpleaños');return false;" data-i="0">
+        <a class="svc-card" href="#" onclick="openPackage('cumpleanos');return false;" data-i="0">
           <div class="svc-cover"><img src="imagenes/pdf/cumple_hero.jpeg" alt="Cumpleaños" loading="lazy"></div>
           <div class="svc-content">
             <div class="svc-icon">🎂</div>
@@ -400,7 +578,7 @@
           </div>
         </a>
 
-        <a class="svc-card" href="#" onclick="openPdf('pdfs/gestacion.pdf','Maternidad');return false;" data-i="1">
+        <a class="svc-card" href="#" onclick="openPackage('gestacion');return false;" data-i="1">
           <div class="svc-cover"><img src="imagenes/pdf/mat_hero.jpeg" alt="Maternidad" loading="lazy"></div>
           <div class="svc-content">
             <div class="svc-icon">🤍</div>
@@ -413,7 +591,7 @@
           </div>
         </a>
 
-        <a class="svc-card" href="#" onclick="openPdf('pdfs/bodas.pdf','Bodas');return false;" data-i="2">
+        <a class="svc-card" href="#" onclick="openPackage('bodas');return false;" data-i="2">
           <div class="svc-cover"><img src="imagenes/pdf/boda_hero.jpeg" alt="Bodas" loading="lazy"></div>
           <div class="svc-content">
             <div class="svc-icon">💍</div>
@@ -426,7 +604,7 @@
           </div>
         </a>
 
-        <a class="svc-card" href="#" onclick="openPdf('pdfs/kids.pdf','Kids');return false;" data-i="3">
+        <a class="svc-card" href="#" onclick="openPackage('kids');return false;" data-i="3">
           <div class="svc-cover"><img src="imagenes/pdf/kids_hero.jpeg" alt="Kids" loading="lazy"></div>
           <div class="svc-content">
             <div class="svc-icon">🌸</div>
@@ -439,7 +617,7 @@
           </div>
         </a>
 
-        <a class="svc-card" href="#" onclick="openPdf('pdfs/xv-anos.pdf','XV Años');return false;" data-i="4">
+        <a class="svc-card" href="#" onclick="openPackage('xv');return false;" data-i="4">
           <div class="svc-cover"><img src="imagenes/pdf/xv_hero.jpeg" alt="XV Años" loading="lazy"></div>
           <div class="svc-content">
             <div class="svc-icon">✨</div>
@@ -452,7 +630,7 @@
           </div>
         </a>
 
-        <a class="svc-card" href="#" onclick="openPdf('pdfs/familia.pdf','Familia');return false;" data-i="5">
+        <a class="svc-card" href="#" onclick="openPackage('familia');return false;" data-i="5">
           <div class="svc-cover"><img src="imagenes/pdf/mat_gal4.jpeg" alt="Familia" loading="lazy"></div>
           <div class="svc-content">
             <div class="svc-icon">👨‍👩‍👧</div>
@@ -465,7 +643,7 @@
           </div>
         </a>
 
-        <a class="svc-card" href="#" onclick="openPdf('pdfs/retrato.pdf','Retrato &amp; Modelo');return false;" data-i="6">
+        <a class="svc-card" href="#" onclick="openPackage('retrato');return false;" data-i="6">
           <div class="svc-cover"><img src="imagenes/pdf/pareja_estudio.jpeg" alt="Retrato" loading="lazy"></div>
           <div class="svc-content">
             <div class="svc-icon">📸</div>
@@ -478,7 +656,7 @@
           </div>
         </a>
 
-        <a class="svc-card" href="#" onclick="openPdf('pdfs/revelacion-sexo.pdf','Revelación de Sexo');return false;" data-i="7">
+        <a class="svc-card" href="#" onclick="openPackage('revelacion');return false;" data-i="7">
           <span class="svc-badge">Nuevo</span>
           <div class="svc-cover"><img src="imagenes/pdf/mat_exterior.jpeg" alt="Revelación de Sexo" loading="lazy"></div>
           <div class="svc-content">
@@ -492,7 +670,7 @@
           </div>
         </a>
 
-        <a class="svc-card" href="#" onclick="openPdf('pdfs/nuevo-cliente.pdf','Nuevo Cliente');return false;" data-i="8">
+        <a class="svc-card" href="#" onclick="openPackage('nuevo');return false;" data-i="8">
           <div class="svc-cover"><img src="imagenes/pdf/mat_gal3.jpeg" alt="Nuevo Cliente" loading="lazy"></div>
           <div class="svc-content">
             <div class="svc-icon">💜</div>
@@ -543,12 +721,12 @@
       <div class="footer__col">
         <h4 class="footer__heading">Sesiones</h4>
         <nav>
-          <a href="pdfs/cumpleanos.pdf" target="_blank">Cumpleaños</a>
-          <a href="pdfs/gestacion.pdf" target="_blank">Maternidad</a>
-          <a href="pdfs/bodas.pdf" target="_blank">Bodas</a>
-          <a href="pdfs/kids.pdf" target="_blank">Kids</a>
-          <a href="pdfs/xv-anos.pdf" target="_blank">XV Años</a>
-          <a href="pdfs/familia.pdf" target="_blank">Familia</a>
+          <a href="#" onclick="openPackage('cumpleanos');return false;">Cumpleaños</a>
+          <a href="#" onclick="openPackage('gestacion');return false;">Maternidad</a>
+          <a href="#" onclick="openPackage('bodas');return false;">Bodas</a>
+          <a href="#" onclick="openPackage('kids');return false;">Kids</a>
+          <a href="#" onclick="openPackage('xv');return false;">XV Años</a>
+          <a href="#" onclick="openPackage('familia');return false;">Familia</a>
         </nav>
       </div>
       <div class="footer__col">
@@ -575,29 +753,24 @@
     </div>
   </footer>
 
-  <!-- PDF MODAL con PDF.js -->
-  <div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true">
-    <div class="pdf-modal__bar">
-      <div>
-        <span class="pdf-modal__title" id="pdfModalTitle">Paquetes</span>
-        <span class="pdf-modal__info" id="pdfModalInfo"></span>
+  <!-- MODAL DE PAQUETES -->
+  <div class="pkg-modal" id="pkgModal" role="dialog" aria-modal="true">
+    <div class="pkg-modal__bar">
+      <div class="pkg-modal__heading">
+        <span class="pkg-modal__emoji" id="pkgEmoji"></span>
+        <span class="pkg-modal__title" id="pkgTitle">Paquetes</span>
+        <span class="pkg-modal__sub" id="pkgSub"></span>
       </div>
-      <button class="pdf-modal__close" onclick="closePdf()">✕ Cerrar</button>
+      <button class="pkg-modal__close" onclick="closePackage()">✕ Cerrar</button>
     </div>
-    <div class="pdf-modal__scroll" id="pdfScroll">
-      <div class="pdf-modal__loading" id="pdfLoading">
-        <span>⟳</span>Cargando paquetes...
-      </div>
+    <div class="pkg-modal__scroll">
+      <div class="pkg-modal__inner" id="pkgContent"></div>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="script.js"></script>
   <script>
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-    /* ── Entrance animation con IntersectionObserver ── */
+    /* ── Entrance animation ── */
     var cards = document.querySelectorAll('.svc-card');
     var obs = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
@@ -610,59 +783,478 @@
     }, { threshold: 0.12 });
     cards.forEach(function(c) { obs.observe(c); });
 
-    /* ── PDF Modal ── */
-    function openPdf(src, title) {
-      var modal   = document.getElementById('pdfModal');
-      var scroll  = document.getElementById('pdfScroll');
-      var label   = document.getElementById('pdfModalTitle');
-      var info    = document.getElementById('pdfModalInfo');
+    /* ── Datos de paquetes ── */
+    var DATA = {
+      cumpleanos: {
+        titulo: 'Cumpleaños',
+        emoji: '🎂',
+        intro: 'Cumplir años no es solo una fecha — es historia, evolución, amor propio y fuerza. Cada sesión está completamente personalizada para reflejar tu esencia y todo lo que este nuevo capítulo representa.',
+        planes: [
+          {
+            nombre: 'Estándar',
+            subtitulo: 'Set Cumpleaños',
+            precio: '$300 USD',
+            highlight: false,
+            includes: [
+              'Set plano unicolor con globos, champán, número de cumpleaños, sparkles fireworks y pastel de nuestro catálogo',
+              '1 hora de sesión · hasta 2 cambios de outfit',
+              'Dirección de poses y acompañamiento',
+              '10 fotografías finales editadas en HD a tu elección',
+              'Galería digital HD para descarga'
+            ]
+          },
+          {
+            nombre: 'Premium',
+            subtitulo: 'Set Decorativo de Cumpleaños',
+            precio: '$530 USD',
+            precioAlt: 'Sin maquillaje $400 USD',
+            highlight: true,
+            includes: [
+              'Set decorativo con diseño de globos, champán, número de cumpleaños, sparkles fireworks y pastel elegido por el cliente',
+              '1 hora de sesión · hasta 3 cambios de outfit',
+              'Maquillaje profesional',
+              'Dirección de poses y acompañamiento',
+              '15 fotografías finales editadas en HD a tu elección',
+              '5 fotografías en formato original (RAW/JPG)',
+              'Galería digital HD para descarga',
+              'Regalo: videoclip o reel cinético'
+            ]
+          }
+        ],
+        proceso: ['Conversamos sobre estilo, vestuario y decoración', 'Reservas con depósito de $50 USD', 'Sesión de fotos con guía profesional de poses', 'Seleccionas tus fotos · entrega en máx. 4 días hábiles']
+      },
+      gestacion: {
+        titulo: 'Maternidad',
+        emoji: '🤍',
+        intro: 'Estás creando vida… y eso merece ser recordado para siempre. Cada sesión es personalizada para reflejar quién eres hoy y lo que estás viviendo: el amor que crece, la conexión, la fuerza y la belleza de dar vida.',
+        planes: [
+          {
+            nombre: 'Estándar',
+            subtitulo: 'Set Maternidad',
+            precio: '$300 USD',
+            highlight: false,
+            includes: [
+              'Set plano unicolor, set decorativo básico con telones, efectos de luces u otros escenarios',
+              '1 hora de sesión · hasta 2 cambios de outfit',
+              'Dirección de poses y acompañamiento',
+              '10 fotografías finales editadas en HD a tu elección',
+              'Galería digital HD para descarga'
+            ]
+          },
+          {
+            nombre: 'Premium',
+            subtitulo: 'Set Decorativo de Maternidad',
+            precio: '$530 USD',
+            precioAlt: 'Sin maquillaje $400 USD',
+            highlight: true,
+            includes: [
+              'Set decorativo con diseños personalizados',
+              '1 hora de sesión · hasta 3 cambios de outfit',
+              'Maquillaje profesional',
+              'Dirección de poses y acompañamiento',
+              '15 fotografías finales editadas en HD a tu elección',
+              'Galería digital HD para descarga',
+              'Regalo: videoclip o reel cinético'
+            ]
+          },
+          {
+            nombre: 'Exterior',
+            subtitulo: 'Locación al aire libre',
+            precio: '$400 USD',
+            highlight: false,
+            includes: [
+              'Locación a elección (parque, jardín o sitio especial en Atlanta y alrededores)',
+              '1 hora de sesión en locación seleccionada',
+              'Dirección de poses y acompañamiento',
+              '15 fotografías finales editadas en HD a tu elección',
+              'Galería digital HD para descarga'
+            ]
+          }
+        ],
+        proceso: ['Ideal entre semana 28 y 34 del embarazo', 'Reservas con depósito de $50 USD', 'Sesión con guía profesional de poses', 'Seleccionas tus fotos · entrega en máx. 4 días hábiles']
+      },
+      bodas: {
+        titulo: 'Bodas',
+        emoji: '💍',
+        intro: 'Una boda pasa volando. Entre abrazos, lágrimas y risas hay instantes que no vuelven. Estoy ahí para convertirlos en recuerdos que duren toda la vida.',
+        planes: [
+          {
+            nombre: 'Save the Date',
+            subtitulo: 'Anuncio de boda',
+            precio: '$300 USD',
+            precioAlt: 'Independiente $400 USD',
+            highlight: false,
+            includes: [
+              '1 hora de sesión de fotos',
+              'Acompañamiento profesional y dirección de poses',
+              'Diseño de periódico para Save the Date (opcional)',
+              '9 fotografías finales profesionales editadas en HD',
+              'Álbum digital para descarga'
+            ]
+          },
+          {
+            nombre: 'Propuesta',
+            subtitulo: 'El momento del Sí',
+            precio: '$400 USD',
+            highlight: false,
+            includes: [
+              'Traslado al lugar del compromiso (o te ayudamos a escoger locación)',
+              '1 hora de sesión en locación seleccionada',
+              'Fotografías espontáneas y dirigidas capturando emociones reales',
+              '15 fotografías finales profesionales editadas en HD',
+              'Galería digital HD para descarga'
+            ]
+          },
+          {
+            nombre: 'Civil Íntimo',
+            subtitulo: 'Bodas civiles & ceremonias cortas',
+            precio: '$400 USD',
+            highlight: true,
+            includes: [
+              'Sesión en exterior · lugar de preferencia (ideal corte o parques)',
+              'Cobertura de 1 hora',
+              'Fotografías espontáneas y dirigidas',
+              'Acompañamiento profesional para poses en pareja y familia',
+              '15 fotografías finales editadas en HD (piel, iluminación, color)',
+              'Álbum digital para descarga'
+            ]
+          },
+          {
+            nombre: 'Full Experiencia',
+            subtitulo: 'Cobertura completa personalizada',
+            precio: 'Consultar',
+            highlight: false,
+            includes: [
+              'Horas de cobertura según tu evento',
+              'Fotografías espontáneas y dirigidas',
+              'Video cinematográfico (opcional)',
+              'Múltiples locaciones',
+              'Álbum impreso disponible',
+              'Escríbenos por WhatsApp para cotizar'
+            ]
+          }
+        ],
+        proceso: ['Planificamos cada detalle contigo', 'Reservas con depósito de $50 USD', 'Cobertura profesional el día del evento', 'Entrega de fotos en el plazo acordado']
+      },
+      kids: {
+        titulo: 'Kids',
+        emoji: '🌸',
+        intro: 'Capturamos la ternura y la esencia de tu bebé en un recuerdo único. Cada sesión es guiada para que tu pequeño esté siempre cómodo y feliz.',
+        planes: [
+          {
+            nombre: 'Básico',
+            subtitulo: 'Set Unicolor',
+            precio: '$300 USD',
+            highlight: false,
+            includes: [
+              'Set plano unicolor',
+              'Globo número de cumpleaños (opcional)',
+              '1 hora de sesión fotográfica',
+              'Acompañamiento cuidando que tu bebé esté cómodo y feliz',
+              '10 fotografías finales editadas de manera artística y creativa',
+              'Regalo: videoclip o reel cinematográfico'
+            ]
+          },
+          {
+            nombre: 'Premium',
+            subtitulo: 'Set Artístico Creativo',
+            precio: '$500 USD',
+            highlight: true,
+            includes: [
+              'Set decorativo de globos de color de preferencia (opción de temática)',
+              'Número de cumpleaños en madera o luz',
+              'Maqueta de pastel',
+              '1 hora de sesión fotográfica',
+              'Acompañamiento cuidando que tu bebé esté cómodo y feliz',
+              '15 fotografías finales editadas de manera artística y creativa',
+              'Regalo: videoclip o reel cinematográfico'
+            ]
+          },
+          {
+            nombre: 'Premium Plus',
+            subtitulo: 'Set Artístico Fantasía · Nuevo 2026',
+            precio: 'Desde $700 USD',
+            highlight: false,
+            includes: [
+              'Construcción de concepto creativo y set artístico de fantasía con temática personalizada',
+              '1 hora 30 min de sesión · hasta 3 cambios de outfit',
+              'Diseño y elaboración de vestuario acorde al concepto (opcional)',
+              'Dirección de poses y acompañamiento',
+              '15 fotografías finales editadas artísticamente + 10 en crudo',
+              'Regalo: videoclip o reel cinético'
+            ]
+          }
+        ],
+        proceso: ['Conversamos sobre temática y preferencias', 'Reservas con depósito de $50 USD', 'Sesión cómoda y divertida para el bebé', 'Seleccionas tus fotos · entrega en máx. 4 días hábiles']
+      },
+      xv: {
+        titulo: 'XV Años',
+        emoji: '✨',
+        intro: 'Este paquete está diseñado para clientes que desean vivir su evento sin preocupaciones, sabiendo que cada momento importante será documentado de forma profesional, sensible y completa.',
+        planes: [
+          {
+            nombre: 'Pequeño',
+            subtitulo: 'Ideal para sesión en iglesia o parque',
+            precio: '$400 USD',
+            highlight: false,
+            includes: [
+              'Sesión exterior · lugar de preferencia',
+              'Cobertura de 1 hora',
+              'Fotografías espontáneas y dirigidas',
+              'Acompañamiento profesional para poses en pareja y familia',
+              '15 fotografías finales editadas en HD (piel, iluminación, color)',
+              'Álbum digital para descarga'
+            ]
+          },
+          {
+            nombre: 'A tu Medida',
+            subtitulo: 'Cobertura personalizada',
+            precio: 'Según tu paquete',
+            highlight: false,
+            includes: [
+              'Cobertura de 3 a 10 horas fotográficas',
+              'De 15 a 90 fotografías editadas en alta resolución',
+              'Fotografía + Video cinematográfico de 1 a 5 min (opcional)',
+              'De 1 a 3 locaciones para fotos o videos',
+              'Servicio de impresión: álbumes, fotografías o retratos impresos',
+              'Cotización personalizada por WhatsApp'
+            ]
+          },
+          {
+            nombre: 'Full Experiencia',
+            subtitulo: 'Cobertura completa del evento',
+            precio: '$2,500 USD',
+            highlight: true,
+            includes: [
+              '10 horas continuas de cobertura profesional',
+              'Hasta 3 locaciones (preparación, sesión, ceremonia y celebración)',
+              'Presentes desde el maquillaje hasta el cierre del evento',
+              '90 fotografías finales editadas en alta resolución + todas en crudo',
+              'Video cinematográfico de 2 a 5 minutos con música y narrativa visual',
+              'Álbum impreso hasta 25 fotografías, pasta dura con acabado elegante'
+            ]
+          }
+        ],
+        proceso: ['Planificamos cada detalle del evento contigo', 'Reservas con depósito de $50 USD', 'Cobertura profesional el día del evento', 'Entrega de fotos y video en el plazo acordado']
+      },
+      familia: {
+        titulo: 'Familia',
+        emoji: '👨‍👩‍👧',
+        intro: 'Una experiencia fotográfica creada para celebrar el amor que une a tu familia. Capturamos gestos reales, conexiones profundas y la esencia de cada vínculo.',
+        planes: [
+          {
+            nombre: 'En Studio',
+            subtitulo: 'Estudio con iluminación profesional',
+            precio: '$300 USD',
+            highlight: false,
+            includes: [
+              '1 hora de sesión de fotos en estudio',
+              'Acompañamiento profesional y dirección de poses',
+              '9 fotografías finales editadas en HD',
+              'Álbum digital para descarga',
+              'Máximo 5 personas · personas adicionales tienen costo extra',
+              'Regalo: videoclip o reel cinético'
+            ]
+          },
+          {
+            nombre: 'En Exterior',
+            subtitulo: 'Luz natural y paisajes reales',
+            precio: '$400 USD',
+            highlight: true,
+            includes: [
+              'Locación a elección (parque, jardín o sitio especial en Atlanta)',
+              '1 hora de sesión en locación seleccionada',
+              'Dirección de poses y acompañamiento',
+              '12 fotografías finales editadas en HD a tu elección',
+              'Galería digital HD para descarga',
+              'Regalo: videoclip o reel cinético'
+            ]
+          }
+        ],
+        proceso: ['Conversamos sobre el estilo y la locación ideal', 'Reservas con depósito de $50 USD', 'Sesión relajada con guía de poses para todos', 'Seleccionas tus fotos · entrega en máx. 4 días hábiles']
+      },
+      retrato: {
+        titulo: 'Retrato & Modelo',
+        emoji: '📸',
+        intro: 'Una experiencia fotográfica diseñada para resaltar tu esencia, tu presencia y tu identidad de una forma única y fuera de lo común.',
+        planes: [
+          {
+            nombre: 'Estándar',
+            subtitulo: 'Set Unicolor',
+            precio: '$300 USD',
+            highlight: false,
+            includes: [
+              'Set plano unicolor',
+              '1 hora de sesión · hasta 2 cambios de outfit',
+              'Dirección de poses y acompañamiento',
+              '9 fotografías finales editadas en HD a tu elección',
+              'Galería digital HD para descarga'
+            ]
+          },
+          {
+            nombre: 'Exterior',
+            subtitulo: 'Luz natural y entorno real',
+            precio: '$400 USD',
+            highlight: false,
+            includes: [
+              'Locación a elección (parque, jardín o sitio especial en Atlanta)',
+              '1 hora de sesión en locación seleccionada',
+              'Dirección de poses y acompañamiento',
+              '15 fotografías finales editadas en HD a tu elección',
+              'Galería digital HD para descarga'
+            ]
+          },
+          {
+            nombre: 'Premium',
+            subtitulo: 'Set Artístico o Temático',
+            precio: '$530 USD',
+            precioAlt: 'Sin maquillaje $400 USD',
+            highlight: true,
+            includes: [
+              'Set con estilo artístico o temático personalizado',
+              '1 hora de sesión · hasta 3 cambios de outfit',
+              'Maquillaje profesional',
+              'Dirección de poses y acompañamiento',
+              '15 fotografías finales editadas en HD + totalidad de fotos tomadas',
+              'Galería digital HD para descarga',
+              'Regalo: videoclip o reel cinético'
+            ]
+          }
+        ],
+        proceso: ['Conversamos sobre el concepto y estilo', 'Reservas con depósito de $50 USD', 'Sesión con guía profesional de poses', 'Seleccionas tus fotos · entrega en máx. 4 días hábiles']
+      },
+      revelacion: {
+        titulo: 'Revelación de Sexo',
+        emoji: '🩵🩷',
+        intro: 'Capturamos el momento más emocionante del embarazo. Una experiencia completamente guiada, llena de color, emoción y recuerdos para toda la vida.',
+        planes: [
+          {
+            nombre: 'Studio',
+            subtitulo: 'Fondo unicolor minimalista',
+            precio: '$300 USD',
+            precioAlt: 'Con decoración personalizada $400 USD',
+            highlight: false,
+            includes: [
+              'Set con fondo plano unicolor · escenario moderno y elegante',
+              '1 hora de sesión fotográfica profesional',
+              'Pintura y confeti para la revelación',
+              'Dirección de poses y acompañamiento · no se necesita experiencia',
+              '10 fotografías finales profesionales editadas en HD',
+              'Galería digital privada en alta resolución para descarga'
+            ]
+          },
+          {
+            nombre: 'Íntimo Exterior',
+            subtitulo: 'Locación al aire libre',
+            precio: '$400 USD',
+            highlight: true,
+            includes: [
+              'Locación a elección (o te ayudamos a escoger en Atlanta y alrededores)',
+              '1 hora de sesión fotográfica profesional',
+              'Fotografías espontáneas y dirigidas capturando emociones reales',
+              'Dirección de poses y acompañamiento',
+              '15 fotografías finales profesionales editadas en HD',
+              'Galería digital HD para descarga'
+            ]
+          }
+        ],
+        proceso: ['Definimos todos los detalles del gran día', 'Reservas con depósito de $50 USD', 'Llegamos 20 minutos antes al lugar acordado', 'Entrega de fotos en 5 a 15 días según el paquete']
+      },
+      nuevo: {
+        titulo: 'Nuevo Cliente',
+        emoji: '💜',
+        intro: 'Este paquete es ideal para quienes desean disfrutar de una sesión de fotos profesional sin realizar una gran inversión. Es la oportunidad perfecta para conocer nuestra forma de trabajar.',
+        planes: [
+          {
+            nombre: 'Nuevo Cliente',
+            subtitulo: 'Primera sesión — oferta especial',
+            precio: '$199 USD',
+            highlight: true,
+            includes: [
+              'Ideal para: cumpleaños, maternidad, familia o retrato',
+              'Set con fondo plano unicolor minimalista atemporal',
+              '30 minutos de sesión fotográfica dinámica y guiada',
+              'Dirección de poses · no se necesita experiencia',
+              '5 fotografías finales editadas profesionalmente en HD',
+              '5 fotografías en formato original (RAW/JPG directo de cámara)',
+              'Galería digital privada para descarga'
+            ]
+          }
+        ],
+        proceso: ['Compartes tu idea con la fotógrafa', 'Reservas con depósito de $50 USD', 'El día de la sesión traes tu decoración o accesorios favoritos', 'Eliges tus fotos al finalizar · entrega en pocos días']
+      }
+    };
 
-      label.textContent = title;
-      info.textContent  = '';
-      scroll.innerHTML  = '<div class="pdf-modal__loading" id="pdfLoading"><span>⟳</span>Cargando...</div>';
+    /* ── Formas de pago (común) ── */
+    var PAGO = 'Efectivo · Tarjeta de crédito · Tarjeta de débito · Zelle: elvimemories@gmail.com';
 
+    /* ── Render ── */
+    function openPackage(id) {
+      var d = DATA[id];
+      if (!d) return;
+
+      document.getElementById('pkgEmoji').textContent = d.emoji;
+      document.getElementById('pkgTitle').textContent = d.titulo;
+      document.getElementById('pkgSub').textContent = '· ' + d.planes.length + ' paquete' + (d.planes.length > 1 ? 's' : '');
+
+      var waBase = 'https://wa.me/16787659231?text=Hola!%20Vi%20los%20paquetes%20de%20' + encodeURIComponent(d.titulo) + '%20y%20quiero%20reservar%20%F0%9F%A4%8D';
+
+      var cardsHtml = d.planes.map(function(p) {
+        var gift = p.includes.filter(function(i) { return i.startsWith('Regalo:'); });
+        var normal = p.includes.filter(function(i) { return !i.startsWith('Regalo:'); });
+        var listItems = normal.map(function(i) { return '<li>' + i + '</li>'; }).join('');
+        var giftItems = gift.map(function(i) { return '<li class="gift">' + i + '</li>'; }).join('');
+        return '<div class="pkg-card' + (p.highlight ? ' highlight' : '') + '">'
+          + '<span class="pkg-card__badge">' + p.nombre + '</span>'
+          + '<div>'
+          + '<div class="pkg-card__name">' + p.nombre + '</div>'
+          + '<div class="pkg-card__subtitle">' + p.subtitulo + '</div>'
+          + '</div>'
+          + '<div class="pkg-card__price">'
+          + '<span class="pkg-card__price-main">' + p.precio + '</span>'
+          + (p.precioAlt ? '<span class="pkg-card__price-alt">' + p.precioAlt + '</span>' : '')
+          + '</div>'
+          + '<div class="pkg-card__divider"></div>'
+          + '<ul class="pkg-card__list">' + listItems + giftItems + '</ul>'
+          + '<a class="pkg-card__cta" href="' + waBase + '%20-%20Paquete%20' + encodeURIComponent(p.nombre) + '" target="_blank" rel="noopener">'
+          + '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>'
+          + 'Reservar este paquete'
+          + '</a>'
+          + '</div>';
+      }).join('');
+
+      var pasosHtml = d.proceso.map(function(paso, i) {
+        return '<div class="pkg-paso"><span class="pkg-paso__num">' + (i + 1) + '</span><span class="pkg-paso__text">' + paso + '</span></div>';
+      }).join('');
+
+      document.getElementById('pkgContent').innerHTML =
+        '<div class="pkg-intro"><p>' + d.intro + '</p></div>'
+        + '<div class="pkg-cards">' + cardsHtml + '</div>'
+        + '<div class="pkg-proceso">'
+        + '<div class="pkg-proceso__title">Cómo funciona</div>'
+        + '<div class="pkg-proceso__steps">' + pasosHtml + '</div>'
+        + '</div>'
+        + '<div class="pkg-pago">Formas de pago: <span>' + PAGO + '</span></div>';
+
+      var modal = document.getElementById('pkgModal');
+      modal.scrollTop = 0;
+      document.getElementById('pkgModal').querySelector('.pkg-modal__scroll').scrollTop = 0;
       modal.classList.add('open');
       requestAnimationFrame(function() { modal.classList.add('anim'); });
       document.body.style.overflow = 'hidden';
-
-      pdfjsLib.getDocument(src + '?v=' + Date.now()).promise.then(function(pdf) {
-        document.getElementById('pdfLoading').style.display = 'none';
-        info.textContent = '· ' + pdf.numPages + ' páginas';
-
-        var renderPage = function(num) {
-          pdf.getPage(num).then(function(page) {
-            var vw = Math.min(scroll.clientWidth - 32, 900);
-            var viewport = page.getViewport({ scale: vw / page.getViewport({ scale: 1 }).width });
-            var canvas = document.createElement('canvas');
-            canvas.width  = viewport.width;
-            canvas.height = viewport.height;
-            scroll.appendChild(canvas);
-            page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport });
-            if (num < pdf.numPages) renderPage(num + 1);
-          });
-        };
-        renderPage(1);
-
-      }).catch(function() {
-        document.getElementById('pdfLoading').innerHTML =
-          '⚠️ No se pudo cargar el PDF.<br><br>' +
-          '<a href="' + src + '" target="_blank" style="color:#a87dc8">Abrir en otra ventana</a>';
-      });
     }
 
-    function closePdf() {
-      var modal = document.getElementById('pdfModal');
+    function closePackage() {
+      var modal = document.getElementById('pkgModal');
       modal.classList.remove('anim');
       setTimeout(function() {
         modal.classList.remove('open');
-        document.getElementById('pdfScroll').innerHTML =
-          '<div class="pdf-modal__loading" id="pdfLoading"><span>⟳</span>Cargando...</div>';
         document.body.style.overflow = '';
       }, 230);
     }
 
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closePdf();
+      if (e.key === 'Escape') closePackage();
     });
   </script>
 </body>
