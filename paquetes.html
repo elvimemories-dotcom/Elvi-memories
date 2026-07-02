@@ -629,13 +629,17 @@
         document.getElementById('pdfLoading').style.display = 'none';
         info.textContent = '· ' + pdf.numPages + ' páginas';
 
+        var dpr = window.devicePixelRatio || 1;
         var renderPage = function(num) {
           pdf.getPage(num).then(function(page) {
             var vw = Math.min(scroll.clientWidth - 32, 900);
-            var viewport = page.getViewport({ scale: vw / page.getViewport({ scale: 1 }).width });
+            var scale = vw / page.getViewport({ scale: 1 }).width;
+            var viewport = page.getViewport({ scale: scale * dpr });
             var canvas = document.createElement('canvas');
             canvas.width  = viewport.width;
             canvas.height = viewport.height;
+            canvas.style.width  = (viewport.width  / dpr) + 'px';
+            canvas.style.height = (viewport.height / dpr) + 'px';
             scroll.appendChild(canvas);
             page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport });
             if (num < pdf.numPages) renderPage(num + 1);
