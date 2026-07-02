@@ -2,6 +2,11 @@ name = "elvimemories"
 compatibility_date = "2026-07-01"
 compatibility_flags = ["nodejs_compat"]
 
+routes = [
+  { pattern = "elvimemories.com/*", zone_name = "elvimemories.com" },
+  { pattern = "www.elvimemories.com/*", zone_name = "elvimemories.com" }
+]
+
 [assets]
 directory = "."
 exclude = [
