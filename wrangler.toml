@@ -8,15 +8,4 @@ routes = [
 ]
 
 [assets]
-directory = "."
-exclude = [
-  "pdfs/**",
-  "OneDrive/**",
-  ".github/**",
-  "node_modules/**",
-  ".wrangler/**",
-  "*.py",
-  "*.md",
-  "*.zip",
-  "*.toml"
-]
+directory = "dist"
